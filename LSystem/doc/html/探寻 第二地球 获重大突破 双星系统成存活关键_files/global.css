@@ -1,0 +1,131 @@
+@charset "gbk";
+/* CSS Document */
+body { text-align: left; margin:0; padding:0; font-size:12px;background:url(http://static.kexue.com/images/ztBody.gif) repeat-x top #e3e4e5;color:#000; font-family:'Tahoma'}
+body > div { text-align:left; margin-right:auto; margin-left:auto;} 
+div,form,img,ul,ol,li,dl,dd,dt,p { margin: 0; padding: 0; border: 0;}
+h1,h2,h3,h4,h5,h6 { margin:0; padding:0; font-size:12px; font-weight:normal;}
+ul,li,dd,dt { list-style: none }
+input { font-size:12px; padding:0; margin:0}
+em { font-style:normal}
+a { color:#333; text-decoration:underline}
+a:hover {color:#f00;text-decoration:none}
+.Area { width:950px;margin:0 auto; background:#fff}
+.AreaBox { width:940px; margin:0 auto}
+/*float*/
+.left { float: left;display:inline}
+.right { float: right;display:inline}
+.clear,.Area,.pp,.pt{zoom:1}
+.clear:after, .Area:after, .pt:after, .pp:after,.AreaBox:after{content: ".";color:#f1f1f2;display: block;height: 0;clear: both;}	/* firefox1.0 */
+h2{text-align:right}
+h2 span{float:left;font-weight:bold}
+.pt span {float:left;margin-right:10px;}
+.pt h3{line-height:21px; color:#333}
+.pt p{line-height:18px;color:#8d8d8d}
+.pp li { float:left; display:inline}
+/*font-size*/
+.f10 { font-size: 10px;}
+.f12 { font-size: 12px;}
+.f14 { font-size: 14px;}
+.fb { font-weight: bold;}
+/*line-height*/
+.lh18 { line-height:18px}
+.lh21 { line-height:21px}
+.lh24 { line-height:24px}
+.lh30 { line-height:30px}
+/*space*/
+.blank5 {height:5px;font-size:1px;}
+.blank8 {height:8px;font-size:1px;}
+.blank10 {height:10px;font-size:1px;}
+.blank10_w { background:#fff;height:10px;font-size:1px;}
+.mt10{margin-top:10px}
+.mt5{margin-top:5px}
+/* text-align */
+.tl {text-align:left}
+.tc {text-align:center}
+.tr {text-align:right}
+/* color */
+.red,.red a,.red a:hover{color:#d00000}
+.blue,.blue a,.blue a:hover{color:#56c9ff}
+/* list */
+.list12 li {line-height:22px;background:url(http://static.kexue.com/images/listBg.gif) no-repeat 0 0;padding-left:9px}
+.list14 li {line-height:25px; background:url(http://static.kexue.com/images/listBg.gif) no-repeat 0 0; font-size:14px; padding-left:9px}
+.videoList li { background:url(http://static.kexue.com/images/icon_1.gif) no-repeat left; padding-left:21px; line-height:22px;}
+/*btn*/
+.btn { background:url(http://static.kexue.com/images/btn_3.gif) no-repeat; width:53px; height:20px; text-align:center; color:#333;border:0}
+.btn a,.btn a:hover { color:#333; text-decoration:none; display:block}
+.btn_1 { background:url(http://static.kexue.com/images/btn_6.gif) no-repeat; width:74px; height:20px; text-align:center; color:#333;border:0}
+.btn_1 a,.btn_1 a:hover { color:#333; text-decoration:none; display:block}
+.input{background:url(http://static.kexue.com/images/inputBg.gif) repeat-x;height:17px;border:1px solid #939fd1; width:94px;}
+/*top*/
+#top { background:url(http://static.kexue.com/images/toploginBg.gif) repeat-x; height:31px;}
+#top .login { width:550px;float:right}
+#top .loginH{ width:auto}
+#top .login li{float:left;color:#333;padding-top:4px; display:inline}
+#top .login li.i1{margin:0 10px;line-height:19px;}
+#top .login li.i2{line-height:19px;}
+#top .login a, #top .login a:hover {color:#333;margin:0 6px;}
+#top .login a { text-decoration:none}
+#top .login a:hover { text-decoration:underline}
+#top .login .input{border:1px solid #939fd1;}
+#top .logo{ margin-left:10px; padding-top:5px}
+/*headDiv*/
+.headDiv { padding-top:6px;}
+.headDiv .left { width:750px;}
+.headDiv .right { width:178px; border:1px solid #2165d7; background:#0b2f5a; }
+.headDiv .right h2 {background:url(http://static.kexue.com/images/title_7.gif) repeat-x; height:17px; line-height:17px; border-bottom:1px solid #2165d7; padding:0 7px; color:#b3c5da; text-align:left}
+.headDiv .right .list12 { width:160px; margin:2px auto 2px}
+.headDiv .right .list12 li { background-position:0 -50px}
+.headDiv .right .list12 a { text-decoration:none}
+.headDiv .right .list12 a:hover { text-decoration:underline}
+.headDiv .right .list12 a, .headDiv .right .list12 a:hover { color:#fff}
+/*nav*/
+.nav { background:url(http://static.kexue.com/images/navBg_2.gif) no-repeat; height:28px; line-height:28px; margin-top:8px;}
+.nav a { margin:0 9px; color:#00489f; text-decoration:none}
+.nav a:hover { color:#00489f; text-decoration:underline}
+/*headTag*/
+.headTag { margin-top:8px;height:33px; padding:0 0 0 8px; width:930px; margin:8px auto 0}
+.headTag .right { margin-top:3px;}
+.headTag .right .input { width:173px; margin-right:5px}
+.headTag .txt { line-height:24px;}
+.headTag .txt a { text-decoration:none}
+.headTag .txt a:hover { text-decoration:underline}
+/*foot*/
+#foot { margin-top:10px; background:url(http://static.kexue.com/images/foot.gif) repeat-x top; padding:10px 0; text-align:center}
+#foot p { line-height:22px; color:#000}
+#foot p a { text-decoration:none; color:#000}
+#foot p a:hover { text-decoration:underline; color:#f00}
+/*page*/
+.page { margin:40px auto 20px; width:575px;font-family:Arial;text-align:center}
+.page a{ padding:3px 5px; border:1px solid #CCC;background:#e2f0fb;text-decoration:none;margin-left:3px;}
+.page span{float:right; margin-right:3px; overflow:hidden; text-align:center;}
+.page span a{display:block; overflow:hidden; zoom:1; _float:left;}
+.page span.page_nolink{width:47px;height:18px; line-height:18px; text-align:center; color:#777; cursor:default;}
+.page span.page_num_nonce{padding:0 4px; height:18px; line-height:18px; color:#777; cursor:default}
+.page span.page_num{color:#777; height:20px;}
+.page span.page_num a,.page span.page_num a:visited{border:1px #ddd solid; color:#777; text-decoration:none; padding:0 4px; cursor:pointer; height:18px; line-height:18px;}
+.page span.page_num a:hover,.page span.page_num a:active{border:1px #ddd solid;color:#3774b3; text-decoration:underline}
+.page span.page_next a,.page span.page_next a:visited{border:1px #ddd solid; color:#777; text-align:center; width:47px; cursor:pointer; height:18px; line-height:18px; text-decoration:none}
+.page span.page_next a:hover,.page span.page_next a:active{color:#3774b3; border:1px #ddd solid; text-decoration:underline}
+.page span em { margin:0 5px; display:inline; line-height:20px}
+/*topBar*/
+#topBar {background:url(http://static.kexue.com/images/navBg.gif) repeat-x; height:30px; margin-top:1px;}
+#topBar .login { width:750px;float:left}
+#topBar .right { width:159px;}
+#topBar .login li{float:left;color:#fff;padding-top:4px;display:inline}
+#topBar .login li.i1{margin:0 10px;line-height:19px;}
+#topBar .login li.i2{margin:0 10px 0 0;line-height:19px;}
+#topBar .login li.i3{color:#bcbcbc}
+#topBar .login a, #topBar .login a:hover {color:#bcbcbc;margin:0 6px;}
+#topBar .login .org a, #topBar .login .org a:hover {color:#ffc600}
+#topBar .login .input{background:url(http://static.kexue.com/images/inputBg.gif) repeat-x;height:17px;border:1px solid #e4e4e4; width:94px;}
+#topBar .right li { background:url(http://static.kexue.com/images/icon.gif) no-repeat 0 0; margin-left:10px; display:inline;padding-left:17px;float:left;line-height:30px;}
+#topBar .right li.i1{ background-position:0 -30px; padding-left:16px;}
+#topBar .right li a, #topBar .right li a:hover {color:#fff; text-decoration:none}
+#topBar .right li a:hover { text-decoration:underline}
+/*µ÷²é*/
+.rBox dt{color:#FFFFFF;	font-size:14px;	line-height:28px;}
+.rBox dl{padding:2px; margin:0 5px;}
+.rBox dd{padding:2px;}
+.tc{margin-top:15px;}
+.reply{border:1px solid #ccc;padding-left:5px;}
+.addtime{padding-left:0;float:right;*margin-top:-26px;_margin-top:-26px}

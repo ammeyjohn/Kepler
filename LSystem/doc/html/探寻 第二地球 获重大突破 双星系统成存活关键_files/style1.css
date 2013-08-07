@@ -1,0 +1,131 @@
+@charset "gbk";
+/*----------list----------*/
+.layout640 { width:640px; float:left}
+.layout290 { width:290px; float:right}
+.newsList { padding-bottom:5px;}
+.b_box { border:1px solid #b8d6fb; background:#f5f8fd}
+.b_box h2, .xgNews h2 { background:url(http://static.kexue.com/images/title_11.gif) repeat-x; height:28px; line-height:28px; color:#036; padding:0 10px}
+.b_box h2 span, .xgNews h2 span { font-size:14px;}
+.b_box h2 span.txt { font-size:12px; font-weight:normal;margin-left:10px;display:inline}
+.b_box1 { background:url(http://static.kexue.com/images/bg_13.gif) repeat-y; width:640px;}
+.b_box1Top, .b_box1Bot { background:url(http://static.kexue.com/images/bg_14.gif) no-repeat; height:1px; overflow:hidden}
+.layout640 .b_box { width:638px;}
+.layout290 .b_box { width:288px;}
+/*list_left*/
+.listBox { width:580px; margin:16px auto 10px}
+.list_1 { padding:6px 0 5px;}
+.list_1 h3 { line-height:24px;}
+.list_1 h3 .h3 { font-size:14px; font-weight:bold; color:#036; margin-right:10px}
+.list_1 h3 .h3 a, .list_1 h3 .h3 a:hover {color:#036}
+.list_1 p { line-height:22px;color:#333}
+.list_1 .pt img, .rBox_1 .pp li img, .lBox_1 .pp li img, .imgListDiv .pp li img{ background:#fff; padding:2px; border:1px solid #b8d6fb}
+/*right*/
+h2.hotTag { padding:0}
+.hotTag_1 {background:url(http://static.kexue.com/images/headTag.gif) repeat-x; padding-left:17px; width:923px}
+.hotTag li{ background:url(http://static.kexue.com/images/tag_1.gif) no-repeat left; height:27px; padding-bottom:5px; line-height:27px; float:left; width:96px; font-size:14px;color:#036; text-align:center; cursor:pointer}
+.hotTag li.active { background:url(http://static.kexue.com/images/tag_2.gif) no-repeat; font-weight:bold; cursor: auto}
+.hotList { width:264px; margin:0 auto; padding:8px 0 2px}
+.hotList ul {background:url(http://static.kexue.com/images/phBg.gif) no-repeat 0 0}
+.hotList li{ text-indent:25px; height:22px;color:#c3ccd8}
+.hotList1 { padding-bottom:11px}
+.hotList1 ul{background:url(http://static.kexue.com/images/phBg_1.gif) no-repeat 0 0}
+.hotList1 li { height:23px}
+.rBox_1 { width:276px; margin:10px auto 6px}
+.rBox_1 .pp li{ margin:2px 3px 0; /*width:128px; height:120px*/}
+.rBox_1 .pp h5 { line-height:25px; text-align:center}
+.rBox_1 .list12 { width:258px; margin:6px auto 0}
+.rBox_2 { margin-top:0}
+.rBox_3{margin:8px auto 5px}
+.videoPt { width:266px; margin:0 auto}
+.videoPt span { background:url(http://static.kexue.com/images/bg_12.gif) no-repeat; width:128px; height:101px; padding:3px 3px 0;}
+/*----------zzy----------*/
+.zzyBox { width:576px; margin:17px auto 30px}
+.zzyBox h1 { line-height:39px; border-bottom:1px solid #b8d6fb; text-align:center; color:#036; font-size:20px; font-weight:bold}
+.zzyBox h5 { text-align:center; line-height:35px; color:#000}
+.zzyBox p { padding:7px 0; line-height:24px;}
+.zzyBox {font-size:14px;}
+.lBox_1 { border:1px solid #b8d6fb; width:568px; margin:0 auto 10px}
+.lBox_1 .pp { width:556px; margin:9px auto 0}
+.lBox_1 .pp li { margin:0 4px 0 5px; height:133px}
+.lBox_1 .pp li h5 { line-height:33px; text-align:center}
+.lBox_2 { width:558px; margin:0 auto 27px; border-bottom:1px solid #b8d6fb; height:27px; padding:0 6px; text-align:right}
+.lBox_2 a, .lBox_2 a:hover { color:#036}
+/*xg*/
+.xgNews { width:313px; padding:0 1px}
+.xgNews .list12 { width:285px; margin:6px auto}
+/*googleAd*/
+.googleAd { margin:6px 12px;}
+.googleAd h3 { font-size:14px; line-height:21px;}
+.googleAd h3 a {color:#00009c}
+.googleAd h3 a:hover { color:#f00}
+.googleAd p { line-height:21px;color:#000}
+.googleAd h5 { margin-top:4px;color:#008200}
+/*review*/
+.reviewBox { margin:7px auto 0; width:553px;}
+.reviewBox li { background:url(http://static.kexue.com/images/line_1.gif) repeat-x bottom; padding:2px 5px 3px;}
+.reviewBox li h3{ line-height:23px;color:#666}
+.reviewBox li h3 a, .reviewBox li h3 a:hover {color:#666}
+.reviewBox li p { line-height:22px;}
+.reviewBox .more { text-align:right; line-height:28px;}
+.reviewBox .textArea { margin-top:8px; width:548px; height:80px; margin:0 auto; border:1px solid #c8d8f1; font-size:12px;background:url(http://static.kexue.com/images/bg_15.gif) no-repeat center #fff;}
+.loginBar { padding-top:9px; height:28px; width:554px; margin:0 auto}
+.loginBar li{ float:left;display:inline}
+.loginBar li.i1{margin:0 10px;line-height:19px;}
+.loginBar li.i2{margin:0 10px 0 0;line-height:19px;}
+.reviewNote { padding:0 22px; height:32px; line-height:32px;}
+.reviewPage h3{ border-top:1px solid #c5dfff;color:#888; background:#e6f0fb; padding:0 5px; height:26px; line-height:26px}
+.reviewDiv { padding:10px 22px;} 
+.reviewDiv p { font-size:14px; line-height:24px;}
+.reviewDiv .tr, .reviewDiv .tr a, .reviewDiv .tr a:hover {color:#277ee7}
+.review_yt { margin:7px auto; border:1px solid #e5e5e5; padding:3px 8px 25px;}
+.review_yt h3 { line-height:34px; height:34px;border:0;background:none; padding:0;}
+.review_l { text-align:right; line-height:21px;color:#888}
+.reviewPage .line { background:#c5dfff; height:1px;overflow:hidden}
+.reviewPage .page { margin:8px auto 0; height:27px}
+.review_fb{ width:616px; margin:4px auto 30px}
+.review_fb h3 { line-height:26px;}
+.review_fb .textArea {width:614px; height:148px; margin:0 auto; border:1px solid #c8d8f1; background:url(http://static.kexue.com/images/bg_15.gif) no-repeat center #fff; font-size:12px;}
+.review_fb .loginBar { width:614px;background:url(http://static.kexue.com/images/line_1.gif) repeat-x bottom;}
+.review_fbr{width:273px; margin-bottom:3px}
+.review_fbr .textArea{width:270px}
+.review_fbr .loginBar{width:273px; background:none; height:auto}
+.review_fbr .loginBar li { height:27px;}
+.review_fbr .loginBar .input {width:82px}
+.reviewTop { padding-top:22px; height:66px}
+.reviewTop h1{font-size:24px; color:#036; font-family:'microsoft Yahei'; text-align:center; height:35px;}
+.reviewTop h1 a{color:#036; text-decoration:none}
+.reviewTop h1 a:hover{text-decoration:underline;color:#f00}
+.reviewTop p{text-align:center;color:#036}
+/*----------imgList----------*/
+.imgListDiv {border:1px solid #2165d7; width:638px;background:#d2e4f9}
+.imgListDiv h2 { background:url(http://static.kexue.com/images/title_12.gif) repeat-x; height:28px;line-height:28px; padding:0 15px;color:#a9d0ff}
+.imgListDiv h2 .h2 { background:url(http://static.kexue.com/images/title_12_1.gif) no-repeat; width:90px;margin-top:5px; line-height:23px; text-align:center;color:#004aa2}
+.imgListDiv h2 a, .imgListDiv h2 a:hover{color:#a9d0ff; text-decoration:none}
+.imgListDiv h2 a:hover { text-decoration:underline}
+.imgListDiv .pp { width:624px; margin:14px auto 0;}
+.imgListDiv .pp li { width:142px; margin:0 7px; height:148px;}
+.imgListDiv .pp li h5 { line-height:30px; height:30px; text-align:center}
+.imgListDiv .pp li h5 a, .imgListDiv .pp li h5 a:hover{color:#000}
+.imgListDiv .pp li h5 a:hover{color:#f00}
+.foucsDiv { border:2px solid #0059c4; width:636px}
+.foucsBox { border:1px solid #4670c4; background:#0a459b; background:url(http://static.kexue.com/images/bg_16.gif) repeat-x top #0a459b; padding:8px; height:265px; width:618px}
+.foucsImg { width:431px; float:left; border:2px solid #fff; padding-bottom:2px}
+.foucsImgPage {width:429px; margin:5px auto 0}
+.foucsImgPage .center { width:240px; margin:0 auto;}
+.foucsImgPage .center li { margin:0 3px; float:left; display:inline; width:18px; height:18px;background:#094497;color:#fff;text-align:center; line-height:18px; font-family:'宋体'}
+.foucsImgPage .center li a{ display:block; width:18px; height:10px; text-decoration:none;color:#fff;}
+.foucsImgPage .center li a:hover{ text-decoration:none; background:#f16c00}
+.foucsImgPage .center li.active{background:#f16c00}
+.foucsTxt{ width:167px; float:right;}
+.foucsTxt h3{ line-height:31px;color:#fff56f; font-size:14px}
+.foucsTxt h3 a{color:#fff56f; text-decoration:none}
+.foucsTxt h3 a:hover{color:#fff56f; text-decoration:underline}
+.foucsTxt p{margin-top:5px; line-height:21px;color:#c3ccd8}
+
+/*add10.05.21 star*/
+.videolist{width:628px;margin:0 auto;padding-bottom:18px}
+.videolist li{width:141px;margin:14px 8px 0; position:relative;height:143px;float:left;display:inline}
+.videolist li .bg{background:url(images/bg05_3.gif) no-repeat;width:135px;height:114px;padding:3px 3px 0;}
+.videolist li .icon{ position:absolute;left:8px;top:77px;}
+.videolist li h5{line-height:26px;height:26px;}
+/*add10.05.21 end*/

@@ -1,0 +1,1 @@
+document.getElementById('div_login').style.display="block";document.getElementById('div_logined').style.display="none";

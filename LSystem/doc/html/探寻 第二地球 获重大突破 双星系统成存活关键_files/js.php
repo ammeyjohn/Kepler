@@ -1,0 +1,1 @@
+document.write("<a href=\'http://www.kexue.com/ads/c.php?id=11\' target=\'_blank\'><img src=\'http://static.kexue.com/uploadfile/2010/0621/20100621055633932.jpg\' border=\'0\' width=\'750\' height=\'90\' alt=\'科学大百科\'></a>");

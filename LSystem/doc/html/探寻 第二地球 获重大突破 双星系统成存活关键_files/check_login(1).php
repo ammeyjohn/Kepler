@@ -1,0 +1,1 @@
+document.getElementById('comment').value='请您登陆后发表评论！';document.getElementById('comm_login').style.display="block";

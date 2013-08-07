@@ -1,0 +1,493 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0051)http://blog.csdn.net/fyzhao/article/details/1494379 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>LS文法构图算法(4) 分形树 - Rayman的专栏 - 博客频道 - CSDN.NET</title>
+
+<meta name="description" content="        分形树的基本分形元如下图所示，用比较简单的单规则LS文法即可生成。        只是有一个地方要注意，即图形中存在分叉点A和B，从这两点出发绘制完支线后，还要再回到出发点，所以在画到这种点时，要把当前的位置和方向信息入栈保存，支线画完后，再把信息恢复出来，从分支点接着画。        照以下文法可以生成一个最简单的分形树：        delta ">
+<script charset="utf-8" async="" src="./LS文法构图算法(4) 分形树_files/log.js"></script><script charset="utf-8" async="" src="./LS文法构图算法(4) 分形树_files/cc.js"></script><script type="text/javascript" async="" src="./LS文法构图算法(4) 分形树_files/ga.js"></script><script src="./LS文法构图算法(4) 分形树_files/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/ad.js"></script>
+<link rel="Stylesheet" type="text/css" href="./LS文法构图算法(4) 分形树_files/style.css">
+<link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/fyzhao/rss/list">
+<link rel="shortcut icon" href="http://blog.csdn.net/favicon.ico">
+<link type="text/css" rel="stylesheet" href="./LS文法构图算法(4) 分形树_files/default.css">
+<link type="text/css" rel="stylesheet" href="./LS文法构图算法(4) 分形树_files/style(1).css"></head>
+<body>
+<script src="./LS文法构图算法(4) 分形树_files/pub_topnav_2011.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="./LS文法构图算法(4) 分形树_files/navtop_2012.css">
+<div class="nav_top_2011">
+<p><span style="color:red;">您还未登录！</span>|<a href="https://passport.csdn.net/account/login" target="_top">登录</a>|<a href="https://passport.csdn.net/account/register" target="_top">注册</a>|<a href="https://passport.csdn.net/help/faq" target="_blank">帮助</a></p><ul>
+<li><a href="http://www.csdn.net/" target="_blank" style="color: red;">首页</a></li>
+<li><a href="http://news.csdn.net/" target="_blank">业界</a></li>
+<li><a href="http://mobile.csdn.net/" target="_blank">移动</a></li>
+<li><a href="http://cloud.csdn.net/" target="_blank">云计算</a></li>
+<li><a href="http://sd.csdn.net/" target="_blank">研发</a></li>
+<li><a href="http://bbs.csdn.net/" target="_blank">论坛</a></li>
+<li><a href="http://blog.csdn.net/" target="_blank">博客</a></li>
+<li><a href="http://download.csdn.net/" target="_blank">下载</a></li>
+<li class="more"><h2 id="topnav_btnmore" onclick="showNavMore(this)"><a href="javascript:void(0);">更多</a></h2>
+<div id="topnav_hidlist">
+<iframe name="nav_frm" src="about:blank" width="92" height="178" scrolling="no" frameborder="no"></iframe>
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="container">
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1><a href="http://blog.csdn.net/fyzhao">Rayman的专栏</a></h1>
+            <h2>MSN: fyzhao2004@hotmail.com</h2>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg"></div>
+    <div class="navigator">
+        <ul>
+            <li id="btnContents"><a href="http://blog.csdn.net/fyzhao?viewmode=contents"><span><img src="./LS文法构图算法(4) 分形树_files/ico_list.gif">目录视图</span></a></li>
+            <li id="btnView"><a href="http://blog.csdn.net/fyzhao?viewmode=list"><span><img src="./LS文法构图算法(4) 分形树_files/ico_summary.gif">摘要视图</span></a></li>
+            <li id="btnRss"><a href="http://blog.csdn.net/fyzhao/rss/list"><span><img src="./LS文法构图算法(4) 分形树_files/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "fyzhao";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/fyzhao";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+
+<div id="body">
+<div id="main">
+<div class="main">
+<div class="notice"> 
+
+<a href="https://code.csdn.net/blog/12" target="_blank">
+<font color="red">公告：博客新增直接引用代码功能</font></a>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://www.csdn.net/article/2013-07-24/2816320" target="_blank"><font color="blue">专访谭海燕：移动互联网开发的那些事
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/9495139" target="_blank">
+<font color="red">CSDN博客频道自定义域名、标签搜索功能上线啦！
+
+
+ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="" target="_blank">
+<font color="blue">
+ </font></a>
+
+
+
+
+</div>
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="./LS文法构图算法(4) 分形树_files/LS文法构图算法(4) 分形树.htm">
+        LS文法构图算法(4) 分形树
+        </a></span>
+    </h3>
+</div>
+
+        
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="http://blog.csdn.net/fyzhao/article/category/272486">分形</a> 
+        </span>
+    <span class="link_postdate">2007-01-26 10:31</span>
+    <span class="link_view" title="阅读次数">2403人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="http://blog.csdn.net/fyzhao/article/details/1494379#comments">评论</a>(4)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;LS文法构图算法(4) 分形树&#39;,&#39;1494379&#39;);return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="http://blog.csdn.net/fyzhao/article/details/1494379#report" onclick="javascript:report(1494379,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href="http://blog.csdn.net/tag/details.html?tag=%e7%ae%97%e6%b3%95" target="_blank">算法</a><a href="http://blog.csdn.net/tag/details.html?tag=import" target="_blank">import</a><a href="http://blog.csdn.net/tag/details.html?tag=class" target="_blank">class</a><a href="http://blog.csdn.net/tag/details.html?tag=tree" target="_blank">tree</a><a href="http://blog.csdn.net/tag/details.html?tag=command" target="_blank">command</a><a href="http://blog.csdn.net/tag/details.html?tag=button" target="_blank">button</a></div>
+
+
+    
+<div id="article_content" class="article_content">
+<div><font size="3"></font></div>
+<div><font size="3"></font></div>
+<div><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 分形树的基本分形元如下图所示，用比较简单的单规则LS文法即可生成。</font></div>
+<div><img alt="" src="./LS文法构图算法(4) 分形树_files/o_tree.PNG"></div>
+<div><font size="3"></font></div>
+<div><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 只是有一个地方要注意，即图形中存在分叉点A和B，从这两点出发绘制完支线后，还要再回到出发点，所以在画到这种点时，要把当前的位置和方向信息入栈保存，支线画完后，再把信息恢复出来，从分支点接着画。</font></div>
+<div><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 照以下文法可以生成一个最简单的分形树：</font></div>
+<div><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>delta = 25(</span>度)</font></div>
+<div><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; omega = "F"</font></div>
+<div><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>P : F -&gt; F[-F]F[+F]F</span></font></div>
+<div><font size="3">其中[表示当前位置和方向信息入栈，]为出栈。</font></div>
+<div><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 以下是构造这一分形树的Python程序及运行图。</font></div>
+<div><font size="3">
+<div style="BORDER-RIGHT: windowtext 0.5pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 0.5pt solid; PADDING-LEFT: 5.4pt; BACKGROUND: #e6e6e6; PADDING-BOTTOM: 4px; BORDER-LEFT: windowtext 0.5pt solid; WIDTH: 95%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: windowtext 0.5pt solid">
+<div><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><span style="COLOR: #008000">#</span><span style="COLOR: #008000">!/apps/bin/python</span><span style="COLOR: #008000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #0000ff">from</span><span style="COLOR: #000000">&nbsp;Tkinter&nbsp;</span><span style="COLOR: #0000ff">import</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">*</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #0000ff">import</span><span style="COLOR: #000000">&nbsp;math<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #008000">#</span><span style="COLOR: #008000">&nbsp;Point类存储分支点的位置(X,Y)和方向direction信息</span><span style="COLOR: #008000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #0000ff">class</span><span style="COLOR: #000000">&nbsp;Point&nbsp;:<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;X&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;0<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;Y&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;0<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;0<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800080">__init__</span><span style="COLOR: #000000">&nbsp;(self,&nbsp;x,&nbsp;y,&nbsp;d):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.X&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;x<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.Y&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;y<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;d<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;getX(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">return</span><span style="COLOR: #000000">&nbsp;self.X<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;getY(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">return</span><span style="COLOR: #000000">&nbsp;self.Y<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;getDirection(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">return</span><span style="COLOR: #000000">&nbsp;self.direction<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #0000ff">class</span><span style="COLOR: #000000">&nbsp;Tree(Frame):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;statement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">F</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;replacement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">F[-F]F[+F]F</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;level&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">5</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;math.pi</span><span style="COLOR: #000000">/</span><span style="COLOR: #000000">2</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;winkle&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;math.pi</span><span style="COLOR: #000000">/</span><span style="COLOR: #000000">180</span><span style="COLOR: #000000">*</span><span style="COLOR: #000000">25</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;endX&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">400</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;endY&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">50</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;step&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">2</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #008000">#</span><span style="COLOR: #008000">&nbsp;stack是一个堆栈</span><span style="COLOR: #008000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;stack&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;[]<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800080">__init__</span><span style="COLOR: #000000">(self,&nbsp;master</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">None):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.caluStatement()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frame.</span><span style="COLOR: #800080">__init__</span><span style="COLOR: #000000">(self,&nbsp;master)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.grid()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.createWidgets()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;caluStatement(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">for</span><span style="COLOR: #000000">&nbsp;currentLevel&nbsp;</span><span style="COLOR: #0000ff">in</span><span style="COLOR: #000000">&nbsp;range(0,&nbsp;self.level):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">""</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">for</span><span style="COLOR: #000000">&nbsp;index&nbsp;</span><span style="COLOR: #0000ff">in</span><span style="COLOR: #000000">&nbsp;range(0,len(self.statement)):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">if</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">F</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.replacement<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">else</span><span style="COLOR: #000000">&nbsp;:<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.statement[index]<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.statement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;newStatement<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">print</span><span style="COLOR: #000000">&nbsp;self.statement<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;createWidgets(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #008000">#</span><span style="COLOR: #008000">self.quitButton&nbsp;=&nbsp;Button(self,&nbsp;text="QUIT",&nbsp;command=self.quit)</span><span style="COLOR: #008000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #008000">#</span><span style="COLOR: #008000">self.quitButton.pack(side=BOTTOM,&nbsp;fill=BOTH)</span><span style="COLOR: #008000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.draw&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;Canvas(self,&nbsp;width</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">800</span><span style="COLOR: #000000">,&nbsp;height</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">600</span><span style="COLOR: #000000">)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.draw.pack(side</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">LEFT)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.drawCanvas()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;drawCanvas(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">for</span><span style="COLOR: #000000">&nbsp;index&nbsp;</span><span style="COLOR: #0000ff">in</span><span style="COLOR: #000000">&nbsp;range(0,len(self.statement)):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">if</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">F</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startX&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.endX<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startY&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.endY<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.endX&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;startX&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.step</span><span style="COLOR: #000000">*</span><span style="COLOR: #000000">(math.cos(self.direction))<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.endY&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;startY&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.step</span><span style="COLOR: #000000">*</span><span style="COLOR: #000000">(math.sin(self.direction))<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.draw.create_line(startX,startY,self.endX,self.endY)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">elif</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">-</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">-</span><span style="COLOR: #000000">&nbsp;self.winkle<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">elif</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">+</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.winkle<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">elif</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">[</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.stack.append(Point(self.endX,&nbsp;self.endY,&nbsp;self.direction))<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">elif</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">]</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oldPoint&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.stack.pop()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.endX&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;oldPoint.getX()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.endY&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;oldPoint.getY()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;oldPoint.getDirection()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">app&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;Tree()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">app.master.title(</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">Tree&nbsp;(LS)</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">app.mainloop()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span></div>
+</div>
+</font></div>
+<div><font size="3">&nbsp;<img alt="" src="./LS文法构图算法(4) 分形树_files/o_Screenshot-Tree (LS).png"></font></div>
+<div><font size="3"></font></div>
+<div><font size="3"></font></div>
+<div><font size="3"></font></div>
+<div><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 分形树还可以再复杂一点，在上面的例子中，替换规则被指定为P，构造成的树的形状就是确定的；但如果替换规则有很多种（比如P1、P2、…、PN）可选，而每一次替换的时候是随选一个的话，生成的树的形状也将是不确定的，是随机的，这种多替换规则随机选取的LS文法称为随机LS文法。以下是由基本分形树经过修改得到的随机分形树的源程序以及运行效果图：</font></div>
+<font size="3">&nbsp;
+<div style="BORDER-RIGHT: windowtext 0.5pt solid; PADDING-RIGHT: 5.4pt; BORDER-TOP: windowtext 0.5pt solid; PADDING-LEFT: 5.4pt; BACKGROUND: #e6e6e6; PADDING-BOTTOM: 4px; BORDER-LEFT: windowtext 0.5pt solid; WIDTH: 95%; WORD-BREAK: break-all; PADDING-TOP: 4px; BORDER-BOTTOM: windowtext 0.5pt solid">
+<div><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><span style="COLOR: #008000">#</span><span style="COLOR: #008000">!/apps/bin/python</span><span style="COLOR: #008000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #0000ff">from</span><span style="COLOR: #000000">&nbsp;Tkinter&nbsp;</span><span style="COLOR: #0000ff">import</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">*</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #0000ff">import</span><span style="COLOR: #000000">&nbsp;math<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #0000ff">import</span><span style="COLOR: #000000">&nbsp;random<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #0000ff">class</span><span style="COLOR: #000000">&nbsp;Point&nbsp;:<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;X&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;0<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;Y&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;0<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;0<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800080">__init__</span><span style="COLOR: #000000">&nbsp;(self,&nbsp;x,&nbsp;y,&nbsp;d):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.X&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;x<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.Y&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;y<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;d<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;getX(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">return</span><span style="COLOR: #000000">&nbsp;self.X<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;getY(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">return</span><span style="COLOR: #000000">&nbsp;self.Y<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;getDirection(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">return</span><span style="COLOR: #000000">&nbsp;self.direction<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #0000ff">class</span><span style="COLOR: #000000">&nbsp;RandomTree(Frame):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;statement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">F</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #008000">#</span><span style="COLOR: #008000">随机规则</span><span style="COLOR: #008000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;replacementA&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">F[+F]F[-F]F</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;replacementB&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">F[+F]F[-F[+F]]</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;replacementC&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">FF[-F+F+F]+[+F-F-F]</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;level&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">5</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;math.pi</span><span style="COLOR: #000000">/</span><span style="COLOR: #000000">2</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;winkle&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;math.pi</span><span style="COLOR: #000000">/</span><span style="COLOR: #000000">180</span><span style="COLOR: #000000">*</span><span style="COLOR: #000000">25</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;endX&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">600</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;endY&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">50</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;step&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #000000">4</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;stack&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;[]<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800080">__init__</span><span style="COLOR: #000000">(self,&nbsp;master</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">None):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.caluStatement()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frame.</span><span style="COLOR: #800080">__init__</span><span style="COLOR: #000000">(self,&nbsp;master)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.grid()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.createWidgets()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;caluStatement(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">for</span><span style="COLOR: #000000">&nbsp;currentLevel&nbsp;</span><span style="COLOR: #0000ff">in</span><span style="COLOR: #000000">&nbsp;range(0,&nbsp;self.level):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">""</span><span style="COLOR: #000000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">for</span><span style="COLOR: #000000">&nbsp;index&nbsp;</span><span style="COLOR: #0000ff">in</span><span style="COLOR: #000000">&nbsp;range(0,len(self.statement)):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">if</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">F</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">if</span><span style="COLOR: #000000">&nbsp;(random.random()</span><span style="COLOR: #000000">&lt;</span><span style="COLOR: #000000">0.6</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.replacementA<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">elif</span><span style="COLOR: #000000">&nbsp;(random.random()</span><span style="COLOR: #000000">&lt;</span><span style="COLOR: #000000">0.8</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.replacementB<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">else</span><span style="COLOR: #000000">&nbsp;:<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.replacementC<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">else</span><span style="COLOR: #000000">&nbsp;:<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;newStatement&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.statement[index]<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.statement&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;newStatement<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">print</span><span style="COLOR: #000000">&nbsp;self.statement<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;createWidgets(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #008000">#</span><span style="COLOR: #008000">self.quitButton&nbsp;=&nbsp;Button(self,&nbsp;text="QUIT",&nbsp;command=self.quit)</span><span style="COLOR: #008000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #008000">#</span><span style="COLOR: #008000">self.quitButton.pack(side=BOTTOM,&nbsp;fill=BOTH)</span><span style="COLOR: #008000"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span><span style="COLOR: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.draw&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;Canvas(self,&nbsp;width</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">800</span><span style="COLOR: #000000">,&nbsp;height</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">600</span><span style="COLOR: #000000">)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.draw.pack(side</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">LEFT)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.drawCanvas()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">def</span><span style="COLOR: #000000">&nbsp;drawCanvas(self):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">for</span><span style="COLOR: #000000">&nbsp;index&nbsp;</span><span style="COLOR: #0000ff">in</span><span style="COLOR: #000000">&nbsp;range(0,len(self.statement)):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">if</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">F</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startX&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.endX<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startY&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.endY<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.endX&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;startX&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.step</span><span style="COLOR: #000000">*</span><span style="COLOR: #000000">(math.cos(self.direction))<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.endY&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;startY&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.step</span><span style="COLOR: #000000">*</span><span style="COLOR: #000000">(math.sin(self.direction))<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.draw.create_line(startX,startY,self.endX,self.endY)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">elif</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">-</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">-</span><span style="COLOR: #000000">&nbsp;self.winkle<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">elif</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">+</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">+</span><span style="COLOR: #000000">&nbsp;self.winkle<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">elif</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">[</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.stack.append(Point(self.endX,&nbsp;self.endY,&nbsp;self.direction))<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: #0000ff">elif</span><span style="COLOR: #000000">&nbsp;(self.statement[index]&nbsp;</span><span style="COLOR: #000000">==</span><span style="COLOR: #000000">&nbsp;</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">]</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">):<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oldPoint&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;self.stack.pop()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.endX&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;oldPoint.getX()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.endY&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;oldPoint.getY()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.direction&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;oldPoint.getDirection()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"><br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">app&nbsp;</span><span style="COLOR: #000000">=</span><span style="COLOR: #000000">&nbsp;RandomTree()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">app.master.title(</span><span style="COLOR: #800000">"</span><span style="COLOR: #800000">RandomTree&nbsp;(LS)</span><span style="COLOR: #800000">"</span><span style="COLOR: #000000">)<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif">app.mainloop()<br><img alt="" align="top" src="./LS文法构图算法(4) 分形树_files/None.gif"></span></div>
+</div>
+<p>&nbsp;</p>
+</font><img alt="" src="./LS文法构图算法(4) 分形树_files/o_Screenshot-RandomTree (LS).png">
+</div>
+
+<div class="share_buttons" id="sharePanel"><span>分享到：</span> <a name="sina" class="share_sina" title="分享到新浪微博"></a><a name="qq" class="share_qq" title="分享到腾讯微博"></a></div>
+<!--192.168.100.34-->
+<div class="article_next_prev">
+    <li class="prev_article"><span>上一篇：</span><a href="http://blog.csdn.net/fyzhao/article/details/1493411">LS文法构图算法(3) Hilbert-Peano曲线</a></li>
+    <li class="next_article"><span>下一篇：</span><a href="http://blog.csdn.net/fyzhao/article/details/1548787">“我的”XFree86</a></li>
+</div>
+
+
+    
+</div>
+<div id="ad_cen">
+<script type="text/javascript">BAIDU_CLB_SLOT_ID = "117306";</script>
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/o.js"></script><script charset="utf-8" src="./LS文法构图算法(4) 分形树_files/ecom"></script><div id="baidu_clb_slot_117306"><div style="display:none">-</div> <iframe id="cproIframe1" src="./LS文法构图算法(4) 分形树_files/uijs.htm" width="728" height="90" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div>
+</div>
+<script type="text/javascript">
+    //new Ad(4, 'ad_cen');
+</script>
+<div id="comment_title" class="panel_head">查看评论<a name="comments"></a></div>
+<div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_2273402"><dt class="comment_head" floor="4">4楼 <span class="user"><a class="username" href="http://blog.csdn.net/wind88922" target="_blank">wind88922</a> <span class="ptime">2012-07-04 17:16发表</span>  <a href="http://blog.csdn.net/fyzhao/article/details/1494379#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2273402" username="wind88922"> <a href="http://blog.csdn.net/fyzhao/article/details/1494379#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/fyzhao/article/details/1494379#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wind88922" target="_blank"><img src="./LS文法构图算法(4) 分形树_files/3_wind88922.jpg" width="40" height="40"></a></dd><dd class="comment_body">虽然有些没看懂  但是感谢lz了~~</dd></dl><dl class="comment_item comment_topic" id="comment_item_1399260"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/sudaxuyin" target="_blank">sudaxuyin</a> <span class="ptime">2010-05-29 17:12发表</span>  <a href="http://blog.csdn.net/fyzhao/article/details/1494379#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="1399260" username="sudaxuyin"> <a href="http://blog.csdn.net/fyzhao/article/details/1494379#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/fyzhao/article/details/1494379#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/sudaxuyin" target="_blank"><img src="./LS文法构图算法(4) 分形树_files/3_sudaxuyin.jpg" width="40" height="40"></a></dd><dd class="comment_body">[e02]</dd></dl><dl class="comment_item comment_topic" id="comment_item_557321"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/flushtime" target="_blank">flushtime</a> <span class="ptime">2007-04-28 02:02发表</span>  <a href="http://blog.csdn.net/fyzhao/article/details/1494379#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="557321" username="flushtime"> <a href="http://blog.csdn.net/fyzhao/article/details/1494379#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/fyzhao/article/details/1494379#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/flushtime" target="_blank"><img src="./LS文法构图算法(4) 分形树_files/3_flushtime.jpg" width="40" height="40"></a></dd><dd class="comment_body">这一系列的文章写的很不错,赞一个~<br>楼主还会继续写下去么?</dd></dl><dl class="comment_item comment_topic" id="comment_item_540587"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/wuhao09112003" target="_blank">wuhao09112003</a> <span class="ptime">2007-02-10 21:40发表</span>  <a href="http://blog.csdn.net/fyzhao/article/details/1494379#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="540587" username="wuhao09112003"> <a href="http://blog.csdn.net/fyzhao/article/details/1494379#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/fyzhao/article/details/1494379#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wuhao09112003" target="_blank"><img src="./LS文法构图算法(4) 分形树_files/3_wuhao09112003.jpg" width="40" height="40"></a></dd><dd class="comment_body">第二棵树模拟的真好！</dd></dl><div class="clear"></div></div>
+<div id="comment_bar" style="display: none;"></div>
+<div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:csdn.showLogin(function (dat) {js_logined(dat.data.userName);});">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Ffyzhao%2Farticle%2Fdetails%2F1494379">[注册]</a></div></div>
+<div class="announce">* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '1494379';
+    var commentscount = 4;
+    var islock = false
+</script>
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/comment.js"></script>
+<div id="ad_bot"><iframe id="ad_frm_0" frameborder="0" scrolling="no" src="./LS文法构图算法(4) 分形树_files/ad(1).htm" style="border-width: 0px; overflow: hidden; width: 732px; height: 170px;"></iframe></div>
+<script type="text/javascript">
+    new Ad(5, 'ad_bot');
+</script>
+<div id="report_dialog"></div>
+
+<div id="d-top" style="display: block;">
+<a id="d-top-a" href="http://blog.csdn.net/fyzhao/article/details/1494379#" title="回到顶部">
+<img src="./LS文法构图算法(4) 分形树_files/top.png" alt="TOP"></a>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var d_top=$('#d-top');
+        document.onscroll=function(){
+            var scrTop=(document.body.scrollTop||document.documentElement.scrollTop);
+            if(scrTop>500){
+                d_top.show();
+            }else{
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function(){
+            scrollTo(0,0);
+            this.blur();
+            return false;
+        });
+    });
+</script>
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="side">
+<div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/fyzhao" target="_blank">
+    <img src="./LS文法构图算法(4) 分形树_files/1_fyzhao.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/fyzhao" class="user_name" target="_blank">fyzhao</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]"></a>
+</div>
+<div id="blog_medal">
+<div id="bms_box"></div></div>
+<ul id="blog_rank">
+    <li>访问：<span>94633次</span></li>
+    <li>积分：<span>1627分</span></li>
+    <li>排名：<span>第5771名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>62篇</span></li>
+    <li>转载：<span>19篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>24条</span></li>
+</ul>
+</ul>
+</div>
+
+<div class="panel">
+<ul class="panel_body" style="padding:0;">
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/m.js"></script> 
+<script type="text/javascript"> 
+BAIDU_CLB_preloadSlots("724643","117306"); 
+</script><script charset="utf-8" src="./LS文法构图算法(4) 分形树_files/ecom(1)"></script>
+<script type="text/javascript">BAIDU_CLB_fillSlot("724643");</script><div id="baidu_clb_slot_724643"><iframe id="baidu_clb_slot_iframe_724643" src="./LS文法构图算法(4) 分形树_files/LS文法构图算法(4) 分形树.htm" onload="BAIDU_CLB_renderFrame(&#39;724643&#39;)" width="200" height="250" vspace="0" hspace="0" allowtransparency="true" scrolling="no" marginheight="0" marginwidth="0" frameborder="0" style="border: 0; vertical-align: bottom; margin: 0; display: block;"></iframe></div> 
+</ul>
+</div>
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/473505">3D</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/532098">Android</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/509049">emacs &amp;amp; lisp</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/233323">Java虚拟机</a><span>(8)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/683032">Linux内核</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/238114">Linux应用</a><span>(9)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/477986">Python</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/254949">SIP</a><span>(8)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/516965">X11 - Design</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/272486">分形</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/477708">嵌入式Linux</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/506479">开源</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/235601">文字编码</a><span>(6)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/495275">新知</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/473522">网络安全</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/category/251553">设计模式</a><span>(17)</span>
+</li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/fyzhao/article/month/2011/11">2011年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2010/10">2010年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2010/05">2010年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2009/10">2009年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2009/06">2009年06月</a><span>(2)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/fyzhao/article/month/2009/04">2009年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2009/03">2009年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2009/01">2009年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2008/12">2008年12月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2008/11">2008年11月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2008/10">2008年10月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2008/09">2008年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2008/08">2008年08月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2008/07">2008年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2007/04">2007年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2007/01">2007年01月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2006/12">2006年12月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2006/11">2006年11月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2006/09">2006年09月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/fyzhao/article/month/2006/08">2006年08月</a><span>(7)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head"><span>阅读排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/4275277" title="Android程序如何自适应屏幕的方向和大小">Android程序如何自适应屏幕的方向和大小</a><span>(6536)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/3961261" title="X11协议概要">X11协议概要</a><span>(4288)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/1434666" title="修改linphonec">修改linphonec</a><span>(3422)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/3501099" title="linux framebuffer 例子 (2)">linux framebuffer 例子 (2)</a><span>(3175)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/1450240" title="SER SIP server 快速安裝">SER SIP server 快速安裝</a><span>(3118)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/4275563" title="Android如何保存和读取设置">Android如何保存和读取设置</a><span>(2947)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/1464614" title="Install Python2.5 (including tkinter)">Install Python2.5 (including tkinter)</a><span>(2947)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/1491028" title="递归算法(2) Hilbert-Peano曲线">递归算法(2) Hilbert-Peano曲线</a><span>(2754)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/3961248" title="xlib协议概要">xlib协议概要</a><span>(2726)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/4658132" title="etags 用法">etags 用法</a><span>(2515)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="./LS文法构图算法(4) 分形树_files/LS文法构图算法(4) 分形树.htm" title="LS文法构图算法(4) 分形树">LS文法构图算法(4) 分形树</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/5931999" title="《ELF格式解析》完成，发布1.0版">《ELF格式解析》完成，发布1.0版</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/1491028" title="递归算法(2) Hilbert-Peano曲线">递归算法(2) Hilbert-Peano曲线</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/5554023" title="“段寄存器”的故事">“段寄存器”的故事</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/1485650" title="LS文法构图算法(1) 简介">LS文法构图算法(1) 简介</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/4275277" title="Android程序如何自适应屏幕的方向和大小">Android程序如何自适应屏幕的方向和大小</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/1487639" title="LS文法构图算法(2) Koch雪花">LS文法构图算法(2) Koch雪花</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/1385351" title="缺省适配模式">缺省适配模式</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/3540974" title="printf 输出特效">printf 输出特效</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/fyzhao/article/details/3267054" title="arp 协议详解 攻击原理 简单攻击源码 ">arp 协议详解 攻击原理 简单攻击源码 </a><span>(1)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"><iframe id="ad_frm_1" frameborder="0" scrolling="no" src="./LS文法构图算法(4) 分形树_files/ad.htm" style="border-width: 0px; overflow: hidden; width: 196px; height: 248px;"></iframe></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/5554023#comments">“段寄存器”的故事</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/mxdlove00" class="user_name">大灰狼GaGa</a>:
+收藏了。
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/5554023#comments">“段寄存器”的故事</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/yxc135" class="user_name">yxc</a>:
+写的太好了！
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/5931999#comments">《ELF格式解析》完成，发布1.0版</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/zheng23yi" class="user_name">zheng23yi</a>:
+麻烦传我一份，我的邮箱注册chinaunix的时候出了状况。我的邮箱是303896709@qq.co...
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/5931999#comments">《ELF格式解析》完成，发布1.0版</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/tuowa" class="user_name">tuowa</a>:
+好多都分享了ELF格式的解读，有没有解析ELF的编码经验分享一下啊
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/1494379#comments">LS文法构图算法(4) 分形树</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/wind88922" class="user_name">wind88922</a>:
+虽然有些没看懂  但是感谢lz了~~
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/1491028#comments">递归算法(2) Hilbert-Peano曲线</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/wind88922" class="user_name">wind88922</a>:
+self.lineTo((x1+dx/4+(1-direction)*dx/4),(y1+dy/4+...
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/5931999#comments">《ELF格式解析》完成，发布1.0版</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/miruby" class="user_name">miruby</a>:
+呼吁有这种精神的工程师
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/4275563#comments">Android如何保存和读取设置</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/fred7755" class="user_name">fred7755</a>:
+谢谢分享
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/1491028#comments">递归算法(2) Hilbert-Peano曲线</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/yuanqi244" class="user_name">yuanqi244</a>:
+
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/fyzhao/article/details/1487639#comments">LS文法构图算法(2) Koch雪花</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/fengda2870" class="user_name">fengda2870</a>:
+Koch为什么是F-F++F-F为何不是F+F--F+F
+    </p>
+    </li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/newblog.min.js"></script>
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/showblogmedal.ashx"></script>
+
+<script type="text/javascript">
+document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date()/120000).toString(36) + '="></'+'script>');
+</script><script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/publib_footer.js"></script><link rel="stylesheet" type="text/css" href="./LS文法构图算法(4) 分形树_files/pub_footer_2012.css"><div id="pub_footerall" class="pub_footerall"><dl><dt></dt> <dd><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a>|<a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a>|<a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a>|<a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a>|<a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a>|<a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a>|<a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a>|<a href="mailto:webmaster@csdn.net">问题报告</a></dd><dd><a href="http://wpa.qq.com/msgrd?v=3&uin=2355263776&site=qq&menu=yes" target="_blank" class="qq">QQ客服</a> <a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a> <a href="http://bbs.csdn.net/forums/Service" target="_blank" class="online">论坛反馈</a> <a href="mailto:webmaster@csdn.net" class="email">联系邮箱：webmaster@csdn.net</a> <span class="phone">服务热线：400-600-2320</span></dd><dd>京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号</dd><dd>北京创新乐知信息技术有限公司 版权所有</dd><dd>世纪乐知(北京)网络技术有限公司 提供技术支持</dd><dd>江苏乐知网络技术有限公司 提供商务支持</dd><dd>Copyright © 1999-2012, CSDN.NET, All Rights Reserved&nbsp;<a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./LS文法构图算法(4) 分形树_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./LS文法构图算法(4) 分形树_files/notify.js"></script><script type="text/javascript" charset="utf-8" src="./LS文法构图算法(4) 分形树_files/tracking.js"></script>
+
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./LS文法构图算法(4) 分形树_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./LS文法构图算法(4) 分形树_files/msg.popup.js"></script>
+
+
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/ad-blog.js"></script><script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/ad-ms551.js"></script>
+
+
+<script type="text/javascript" src="./LS文法构图算法(4) 分形树_files/count.js"></script><iframe src="./LS文法构图算法(4) 分形树_files/logs.htm" frameborder="0" width="0" height="0"></iframe>
+
+</div>
+
+<iframe src="./LS文法构图算法(4) 分形树_files/lianxiang-table-bbs-475-60-0621.htm" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe></body></html>

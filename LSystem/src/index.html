@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Styles/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="Scripts/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="Scripts/graphics.js"></script>
+    <script type="text/javascript" src="Scripts/lsystem.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var canvas = $('#drawCanvas')[0];
+            
+            var g = new Graphics(canvas);
+            g.drawLine({
+                pt1: { x: 100, y: 100 },
+                pt2: { x: 100, y: 200 },
+                style: 'red'
+            });
+            
+            g.drawLine({
+                pt1: { x: 100, y: 100 },
+                pt2: { x: 100, y: 200 },
+                style: 'blue',
+                rotation: {
+                    anchor: { x: 100, y: 100 },
+                    degree: 90
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <canvas id="drawCanvas" width="800" height="600" class="canvas"></canvas>
+</body>
+</html>
