@@ -25,13 +25,14 @@ Graphics.prototype.drawLine = function (obj) {
     if (!obj) return;
 
     var cxt = this.getContext();
-
+        
     // 保存上下文绘图状态
     cxt.save();
     if (obj.width) cxt.lineWidth = obj.width;
     if (obj.style) cxt.strokeStyle = obj.style;
 
-    cxt.moveTo(obj.pt1.x, obj.pt1.y);
+    var x1 = obj.pt1.x, y1 = obj.pt1.y;
+    var x2 = obj.pt2.x, y2 = obj.pt2.y;
 
     // 设定旋转角度
     if (obj.rotation && obj.rotation.degree != 0) {
@@ -40,12 +41,19 @@ Graphics.prototype.drawLine = function (obj) {
             var rx = obj.rotation.anchor.x;
             var ry = obj.rotation.anchor.y;
             cxt.translate(rx, ry);
+
+            // 调整定位坐标
+            x1 -= rx; x2 -= rx;
+            y1 -= ry; y2 -= ry;
         }
         cxt.rotate(this.getRadian(obj.rotation.degree));
     }
 
-    cxt.lineTo(obj.pt2.x, obj.pt2.y);
+    cxt.beginPath();
+    cxt.moveTo(x1, y1);
+    cxt.lineTo(x2, y2);
     cxt.stroke();
+    cxt.closePath();
 
     // 恢复上下文绘图状态
     cxt.restore();

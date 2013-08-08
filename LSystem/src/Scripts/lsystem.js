@@ -1,17 +1,15 @@
 ﻿function LSystem(param) {
-    this.dl = 1;
+    this.dl = 10;
     this.dd = 25;
+    this.c = 'green';
+    this.o = { x: 300, y: 550 }
 }
 
 LSystem.prototype.draw = function (g, expr) {
 
-    var canvas = g.Canvas;
     var info = {
-        point: {
-            x: canvas.width / 2,
-            y: canvas.height - 10
-        },
-        color: 'black',
+        point: this.o,
+        color: this.c,
         degree: 0,
         width: 1
     };
@@ -22,49 +20,56 @@ LSystem.prototype.draw = function (g, expr) {
     for (var i = 0; i < expr.length ; i++) {
         var c = expr[i];
 
-        var x = 0, y = 0;
-
+        var obj = null;
         switch (c) {
-            // 按指定长度向前画一条线段
+            // 按指定长度向前画一条线段                
             case 'F':
-                x = info.point.x;
-                y = info.point.y - this.dl;
-                g.drawLine(info.point.x, info.point.y, x, y);                
+                obj = {
+                    pt1: info.point,
+                    pt2: {
+                        x: info.point.x,
+                        y: info.point.y - this.dl
+                    },
+                    style: info.color
+                };
+                if (info.degree != 0) {
+                    obj.rotation = {
+                        anchor: info.point,
+                        degree: info.degree
+                    };
+                }
+                info.point = obj.pt2;
                 break;
             // 按指定长度向前移动（不画）一条线段
             case 'f':
-                x = info.point.x;
-                y = info.point.y - this.length;
+                info.point.y -= this.dl;
                 break;
             // 逆时针旋转给定角度
             case '+':
-                info.degree -= this.dd;
+                info.degree += this.dd;
                 break;
             // 顺时针旋转给定角度 
             case '-':
-                info.degree += this.dd;
+                info.degree -= this.dd;
                 break;
             // 反向180°
             case '|':
-                info.degree += 180;                
+                info.degree += 180;
                 break;
             // 当前指令入栈
             case '[':
-                stack.push(info);
+                var copied = info.Clone();
+                stack.push(copied);
                 break;
             // 当前指令出栈
-            case ']':
+            case ']':                
                 info = stack.pop();
                 break;
             // 增加线宽
             case '#':
-                info.width += 1;
                 break;
             // 减小现况
             case '!':
-                info.width -= 1;
-                if (info.width <= 0)
-                    info.width = 1;
                 break;
             // 按比例乘以线长
             case '>':
@@ -83,15 +88,19 @@ LSystem.prototype.draw = function (g, expr) {
                 break;
         }
 
-        info.point.x = x;
-        info.point.y = y;
+        if (obj) {
 
-        // 将角度调整到0~360之间
-        if (info.degree >= 360 || info.degree < 0) {
-            info.degree %= 360;
-            if (info.degree < 0) {
-                info.degree -= 360;
+            // 将角度调整到0~360之间
+            if (info.degree < 0 || info.degree > 360) {
+                var d = info.degree % 360;
+                if (d < 0) {
+                    d += 360;
+                }
+                info.degree = d;
             }
+
+            g.drawLine(obj);
+            obj = null;
         }
     }
 }
