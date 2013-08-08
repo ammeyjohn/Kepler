@@ -1,0 +1,252 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:TurtleGraphics"
+                    xmlns:coll="clr-namespace:System.Collections;assembly=mscorlib"
+                    xml:space="preserve">
+    
+    <coll:ArrayList x:Key="PredefinedSources">
+            <s:StringsPair First="Dragon curve">
+                <s:StringsPair.Second>
+Axiom = "Fl",
+Rules = new string[]
+{
+"F:F",
+"l:l+rF+", 
+"r:-Fl-r", 
+"+:+",
+"-:-"
+},
+Symbols = new string[]
+{
+    "F:F",
+    "l: ",
+    "r: ",
+    "+:+",
+    "-:-"        
+},
+Level = 10,
+Distance = 10,
+TurnAngle = 90
+                </s:StringsPair.Second>
+            </s:StringsPair>
+            <s:StringsPair First="Islands and lakes">
+                <s:StringsPair.Second>
+Level = 2,
+Axiom = "F-F-F-F",
+Rules = new string[]
+{
+    "F:F-f+FF-F-FF-Ff-FF+f-FF+F+FF+Ff+FFF",
+    "f:ffffff", 
+    "+:+",
+    "-:-"
+},
+Symbols = new string[]
+{
+    "F:F",
+    "f:f",
+    "+:+",
+    "-:-"
+},
+Distance = 10,
+TurnAngle = 90
+                </s:StringsPair.Second>
+            </s:StringsPair>    
+            <s:StringsPair First="Quadratic snowflake">
+                <s:StringsPair.Second>
+Axiom = "-F-F-F-F",
+Rules = new string[]
+{
+    "F:F-F+F+F-F", 
+    "+:+",
+    "-:-"
+},
+Symbols = new string[]
+{
+    "F:F", 
+    "+:+",
+    "-:-"
+},
+Level = 4,
+Distance = 10,
+TurnAngle = 90,
+StartAngle = 45
+        </s:StringsPair.Second>
+            </s:StringsPair>    
+        <s:StringsPair First="Sierpinski curve">
+                <s:StringsPair.Second>
+Level = 6,
+Axiom = "A",
+Rules = new string[]
+{
+    "A:B-A-B",
+    "B:A+B+A",
+    "+:+",
+    "-:-"
+},
+Symbols = new string[]
+{ 
+    "A:F", 
+    "B:F", 
+    "+:+", 
+    "-:-", 
+    "[:[", 
+    "]:]"  
+},
+TurnAngle = 60,
+Distance = 10
+                </s:StringsPair.Second>
+            </s:StringsPair>    
+            <s:StringsPair First="Spiral">
+                <s:StringsPair.Second>
+Axiom = "F",
+Rules = new string[]
+{
+"F:+Ff",
+"f:+F",
+"+: "
+},
+Symbols = new string[]
+{
+    "F:F",
+    "+:+"
+},
+Level = 9,
+Distance = 10,
+TurnAngle = 15,
+StepHandler = p => {p.Distance *= 1.02;}
+                </s:StringsPair.Second>
+            </s:StringsPair>            
+            <s:StringsPair First="Plant">
+                <s:StringsPair.Second>
+StartAngle = 90,
+Level = 3,
+Axiom = "F",
+Rules = new string[]
+{                    
+    "F:F[+F]F[-F]F",
+    "[:[",
+    "]:]",
+    "+:+",
+    "-:-"
+},
+Symbols = new string[]
+{
+    "F:F",
+    "+:+",
+    "-:-",
+    "[:[",
+    "]:]"
+},
+TurnAngle = 25.7,
+Distance = 50,
+StartThickness = 30
+                </s:StringsPair.Second>
+            </s:StringsPair>
+            <s:StringsPair First="Plant2">
+                <s:StringsPair.Second>  
+Level = 5,
+Axiom = "X",
+Rules = new string[]
+{
+"F:FF",
+"X:F-[[X]+X]+F[+FX]-X",
+"[:[",
+"]:]",
+"+:+",
+"-:-"
+},
+Symbols = new string []
+{
+"F:F",
+"X: ",
+"+:+",
+"-:-",
+"[:[",
+"]:]"
+},
+TurnAngle = 22.5,
+StartAngle = 90,
+Distance = 50,
+StartThickness = 100,
+UseRandomColors = true
+                </s:StringsPair.Second>
+            </s:StringsPair>            
+            <s:StringsPair First="Hexagonal Gosper Curve">
+                <s:StringsPair.Second>  
+Level = 4,
+Axiom = "XF",
+Rules = new string[]
+{
+"F:F",
+"X:X+YF++YF-FX--FXFX-YF+", 
+"Y:-FX+YFYF++YF+FX--FX-Y", 
+"+:+",
+"-:-"
+},
+Symbols = new string[]
+{
+"F:F",
+"X: ",
+"Y: ",
+"+:+",
+"-:-",
+"[:[",
+"]:]"
+},
+TurnAngle = 60,
+Distance = 10                    
+                </s:StringsPair.Second>
+            </s:StringsPair>            
+            <s:StringsPair First="River">
+                <s:StringsPair.Second>        
+StartAngle = 90,
+Level = 5,
+Axiom = "F",
+Rules = new string[]
+{                    
+    "F:F[+F]-F+[-+++F]F",
+    "[:[",
+    "]:]",
+    "+:+",
+    "-:-"
+},
+Symbols = new string[]
+{
+    "F:F",
+    "+:+",
+    "-:-",
+    "[:[",
+    "]:]"
+},
+TurnAngle = 25.7,
+Distance = 20,
+StartThickness = 30
+                </s:StringsPair.Second>
+            </s:StringsPair>
+            <s:StringsPair First="Leaf">
+                <s:StringsPair.Second>  
+StartAngle = 90,
+Level = 6,
+Axiom = "i",
+Rules = new string[]
+{                    
+    "i:a[+i][-i]ai",
+    "a:aa"    
+},
+
+Symbols = new string[]
+{
+    "i:F",
+    "a:F",
+    "+:+",
+    "-:-",
+    "[:[",
+    "]:]"
+},
+TurnAngle = 60,
+Distance = 40,
+StartThickness = 100
+                </s:StringsPair.Second>
+            </s:StringsPair>
+        </coll:ArrayList>
+</ResourceDictionary>

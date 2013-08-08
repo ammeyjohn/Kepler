@@ -1,8 +1,29 @@
 ﻿function LSystem(param) {
-    this.dl = 10;
-    this.dd = 25;
+    this.dl = 15;
+    this.dd = 20;
     this.c = 'green';
     this.o = { x: 300, y: 550 }
+}
+
+LSystem.prototype.generate = function (seed, rules, count) {
+
+    var expr = '', temp = seed;
+
+    for (var cnt = 0; cnt < count; cnt++) {
+        expr = temp;
+        temp = '';
+        for (var i = 0; i < expr.length ; i++) {
+            var c = expr[i];
+            var r = rules[c];
+            if (r) {
+                temp += r;
+            } else {
+                temp += c;
+            }
+        }
+    }
+
+    return expr;
 }
 
 LSystem.prototype.draw = function (g, expr) {
@@ -58,8 +79,8 @@ LSystem.prototype.draw = function (g, expr) {
                 break;
             // 当前指令入栈
             case '[':
-                var copied = info.Clone();
-                stack.push(copied);
+                var cloned = info.Clone();
+                stack.push(cloned);
                 break;
             // 当前指令出栈
             case ']':                

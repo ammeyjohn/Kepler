@@ -31,9 +31,29 @@
             cxt.stroke();
             cxt.closePath();
 
+            var str = '';
+            (function draw(expr, rules, depth) {
+                if (depth == 0) return;
+                depth -= 1;
+
+                for (var i = 0; i < expr.length; i++) {
+                    var c = expr[i];
+                    var r = rules[c];
+                    if (r) {
+                        draw(r, rules, depth);
+                    }
+
+                    str += c;
+                }
+            })('F', { F: 'F[+F][-F][F]' }, 3);
+
+
             var g = new Graphics(canvas);
             var ls = new LSystem();
-            ls.draw(g, "FF-[-F+F+F]+[+F-F-F]");
+            //var expr = ls.generate('F', {
+            //    F: 'F[+F][-F][F]'
+            //}, 2);
+            ls.draw(g, str);
         });
 
     </script>
