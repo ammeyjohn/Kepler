@@ -31,34 +31,18 @@
             cxt.stroke();
             cxt.closePath();
 
-            var str = '';
-            (function draw(expr, rules, depth) {
-                if (depth == 0) return;
-                depth -= 1;
-
-                for (var i = 0; i < expr.length; i++) {
-                    var c = expr[i];
-                    var r = rules[c];
-                    if (r) {
-                        draw(r, rules, depth);
-                    }
-
-                    str += c;
-                }
-            })('F', { F: 'F[+F][-F][F]' }, 3);
-
-
-            var g = new Graphics(canvas);
             var ls = new LSystem();
-            //var expr = ls.generate('F', {
-            //    F: 'F[+F][-F][F]'
-            //}, 2);
-            ls.draw(g, str);
+            var expr = ls.generate('F', {
+                F: 'F+F'
+            }, 5);
+
+            $('#generation').val(expr);
         });
 
     </script>
 </head>
 <body>
     <canvas id="drawCanvas" width="600" height="600" class="canvas"></canvas>
+    <textarea id="generation" class="generation"></textarea>
 </body>
 </html>
