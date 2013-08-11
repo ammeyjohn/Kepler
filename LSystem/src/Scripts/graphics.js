@@ -21,6 +21,25 @@ Graphics.prototype.getAngle = function (radian) {
     return radian / Math.PI * 180;
 }
 
+Graphics.prototype.rotateAngle = function (angle, pt, anchor) {
+    if (!anchor) {
+        anchor.x = 0;
+        anchor.y = 0;
+    }
+    var radian = this.getRadian(angle);
+    var res = {};
+    res.x = (pt.x - anchor.x) * Math.cos(radian) + (pt.y - anchor.y) * Math.sin(radian) + anchor.x;
+    res.y = (pt.x - anchor.x) * Math.sin(radian) + (pt.y - anchor.y) * Math.cos(radian) + anchor.y;
+    return res;
+}
+
+Graphics.prototype.rotate = function (x, y, angle) {
+    var radian = this.getRadian(angle);
+    var cxt = this.getContext();
+    cxt.translate(x, y);
+    cxt.rotate(radian);
+}
+
 Graphics.prototype.drawLine = function (obj) {
     if (!obj) return;
 

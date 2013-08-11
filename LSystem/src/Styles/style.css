@@ -6,17 +6,8 @@
 
 .generation {
     position: absolute;
-    top: 615px;
-    left: 10px;
-    width: 600px;
-    height: 200px;    
-}
-
-.inputForm{
-    position: absolute;
     top: 10px;
-    left: 615px;
-    width: auto;
-    height: 600px;
-    border: solid 1px red;
+    left: 510px;
+    width: 490px;
+    height: 100px;    
 }

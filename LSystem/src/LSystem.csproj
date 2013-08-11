@@ -58,14 +58,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
-    <Content Include="packages.config" />
-    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\graphics.js" />
+    <Content Include="packages.config" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\lsystem.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Styles\bootstrap\bootstrap.css" />
+    <Content Include="Styles\bootstrap\bootstrap.min.css" />
     <Content Include="Styles\style.css" />
     <Content Include="Web.config" />
   </ItemGroup>

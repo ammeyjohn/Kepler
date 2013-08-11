@@ -3,10 +3,10 @@
 <head>
     <title></title>
     <link href="Styles/style.css" rel="stylesheet" />
-    <script type="text/javascript" src="Scripts/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="Scripts/common.js"></script>
-    <script type="text/javascript" src="Scripts/graphics.js"></script>
-    <script type="text/javascript" src="Scripts/lsystem.js"></script>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/common.js"></script>
+    <script src="Scripts/graphics.js"></script>
+    <script src="Scripts/lsystem.js"></script>
     <script type="text/javascript">
         $(function () {
             var canvas = $('#drawCanvas')[0];
@@ -15,7 +15,6 @@
 
             var w = canvas.width;
             var h = canvas.height;
-            cxt.lineWidth = 1;
             cxt.strokeStyle = 'gray';
 
             cxt.beginPath();
@@ -31,18 +30,25 @@
             cxt.stroke();
             cxt.closePath();
 
-            var ls = new LSystem();
+            var g = new Graphics(canvas);
+            var ls = new LSystem({
+                origin: { x: w / 2, y: h / 2 },
+                step: 5,
+                angle: 22.5,
+                deltaAngle: 90
+            });
             var expr = ls.generate('F', {
-                F: 'F+F'
+                F: 'FF-[-F+F+F]+[+F-F-F]'
             }, 5);
-
             $('#generation').val(expr);
+            //ls.render(g, 'FFF+F+FF-F+F+FF');
+            ls.render(g, expr);
         });
 
     </script>
 </head>
 <body>
-    <canvas id="drawCanvas" width="600" height="600" class="canvas"></canvas>
+    <canvas id="drawCanvas" width="500" height="500" class="canvas"></canvas>
     <textarea id="generation" class="generation"></textarea>
 </body>
 </html>
