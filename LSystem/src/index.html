@@ -31,18 +31,17 @@
             cxt.closePath();
 
             var g = new Graphics(canvas);
-            var ls = new LSystem({
-                origin: { x: w / 2, y: h / 2 },
-                step: 5,
-                angle: 22.5,
-                deltaAngle: 90
-            });
+            var ls = new LSystem();
             var expr = ls.generate('F', {
-                F: 'FF-[-F+F+F]+[+F-F-F]'
+                'F': 'FF-[-F+F+F]+[+F-F-F]'
             }, 5);
             $('#generation').val(expr);
-            //ls.render(g, 'FFF+F+FF-F+F+FF');
-            ls.render(g, expr);
+            ls.render(g, 'FFFFFFFFFF', {
+                origin: { x: w / 2, y: h / 2 },
+                step: 5,
+                angle: 90,
+                deltaAngle: 22.5
+            });
         });
 
     </script>

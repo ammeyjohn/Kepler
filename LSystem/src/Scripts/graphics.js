@@ -2,6 +2,7 @@
     this.Canvas = canvas;
     this.Width = function () { return this.Canvas.width; }
     this.Height = function () { return this.Canvas.height; }
+    this.Origin = { x: 0, y: 0 }
 }
 
 Graphics.prototype.getContext = function () {
@@ -23,6 +24,7 @@ Graphics.prototype.getAngle = function (radian) {
 
 Graphics.prototype.rotateAngle = function (angle, pt, anchor) {
     if (!anchor) {
+        anchor = { };
         anchor.x = 0;
         anchor.y = 0;
     }
@@ -38,6 +40,28 @@ Graphics.prototype.rotate = function (x, y, angle) {
     var cxt = this.getContext();
     cxt.translate(x, y);
     cxt.rotate(radian);
+}
+
+Graphics.prototype.setOrigin = function (x, y, isRel) {
+    var cxt = this.getContext();
+
+    var org = this.getOrigin();
+    if (!isRel) {
+        // 是否为相对坐标，如果为相对坐标
+        // 如果为不是相对坐标则需要按照当前坐标原点计算偏移
+        cxt.translate(-org.x, -org.y);        
+    } else {
+        cxt.translate(x, y);
+        x += org.x;
+        y += org.y;
+    }
+    this.Origin.x = x;
+    this.Origin.y = y;
+    cxt.translate(x, y);
+}
+
+Graphics.prototype.getOrigin = function () {
+    return this.Origin;
 }
 
 Graphics.prototype.drawLine = function (obj) {
