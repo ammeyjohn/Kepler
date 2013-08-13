@@ -1,4 +1,4 @@
-﻿function LSystem() {    
+﻿function LSystem() {
 }
 
 LSystem.prototype.generate = function (axtom, rules, depth) {
@@ -20,7 +20,7 @@ LSystem.prototype.generate = function (axtom, rules, depth) {
 }
 
 LSystem.prototype.render = function (g, expr, param) {
-    
+
     var stack = [];
 
     // 初始化绘图信息
@@ -32,7 +32,7 @@ LSystem.prototype.render = function (g, expr, param) {
         angle: param.angle
     };
 
-    //g.save();
+    g.save();
     // 将原点设置为起始点
     g.setOrigin(info.pt.x, info.pt.y);
 
@@ -83,8 +83,8 @@ LSystem.prototype.render = function (g, expr, param) {
             case ']':
                 info = stack.pop();
                 g.setOrigin(info.pt.x, info.pt.y, false);
-                break;              
+                break;
         }
     }
-    //g.restore();
+    g.restore();
 }

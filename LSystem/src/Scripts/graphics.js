@@ -1,5 +1,6 @@
 ﻿function Graphics(canvas, isClear) {
     this.Canvas = canvas;
+    this.Context = null;
     this.Width = function () { return this.Canvas.width; }
     this.Height = function () { return this.Canvas.height; }
     this.Origin = { x: 0, y: 0 }
@@ -9,7 +10,10 @@
 }
 
 Graphics.prototype.getContext = function () {
-    return this.Canvas.getContext('2d');
+    if (!this.Context) {
+        this.Context = this.Canvas.getContext('2d');
+    }
+    return this.Context;
 }
 
 Graphics.prototype.save = function () {
@@ -24,7 +28,7 @@ Graphics.prototype.restore = function () {
 
 Graphics.prototype.clearAll = function () {
     var cxt = this.getContext();
-    cxt.clearRect(0, 0, this.Width, this.Height);
+    cxt.clearRect(0, 0, this.Width(), this.Height());
 }
 
 Graphics.prototype.getRadian = function (angle) {

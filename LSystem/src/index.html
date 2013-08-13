@@ -61,20 +61,25 @@
                 drawGrid(cxt, step);
             }
 
+            var depth = parseInt($('#txtDepth').val());
+            var axiom = $('#txtAxiom').val();
+            var rules = {};
+            for(var i = 1; i < 5; i++) {
+                var rule0 = $('#txtRuleLeft' + i).val();               
+                var rule = $('#txtRule' + i).val();
+                if(rule0 == "") continue; 
+                rules[rule0] = rule;
+            }
+
+            var ls = new LSystem();
+            var expr = ls.generate(axiom, rules, depth);
+            $('#exprEditor').val(expr);
+
             var angle = parseFloat($('#txtAngle').val())
             var deltaAngle = parseFloat($('#txtDeltaAngle').val());
             var step = parseFloat($('#txtStep').val());
-            var depth = parseInt($('#txtDepth').val());
             var orgX = parseInt($('#txtOrgX').val());
             var orgY = parseInt($('#txtOrgY').val());
-
-
-            var ls = new LSystem();
-            var expr = ls.generate('Y', {
-                'X': 'X[-FFF][+FFF]FX',
-                'Y': 'YFY[+Y][-Y]'
-            }, depth);
-            $('#exprEditor').val(expr);
 
             var g = new Graphics(canvas, true);
             ls.render(g, expr, {
@@ -82,7 +87,7 @@
                 angle: angle,
                 step: step,
                 deltaAngle: deltaAngle
-            });            
+            });
         }
 
     </script>
@@ -136,31 +141,41 @@
                 <tr>
                     <td class="option_table_cell_title">Rule 1</td>
                     <td class="option_table_cell_value">
-                        <input type="text" id="txtRule1" class="option_text" value="" />
+                        <input type="text" id="txtRuleLeft1" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule1" class="option_rule" value="" />
                     </td>
                 </tr>
                 <tr>
                     <td class="option_table_cell_title">Rule 2</td>
                     <td class="option_table_cell_value">
-                        <input type="text" id="txtRule2" class="option_text" value="" />
+                        <input type="text" id="txtRuleLeft2" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule2" class="option_rule" value="" />
                     </td>
                 </tr>
                 <tr>
                     <td class="option_table_cell_title">Rule 3</td>
                     <td class="option_table_cell_value">
-                        <input type="text" id="txtRule3" class="option_text" value="" />
+                        <input type="text" id="txtRuleLeft3" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule3" class="option_rule" value="" />
                     </td>
                 </tr>
                 <tr>
                     <td class="option_table_cell_title">Rule 4</td>
                     <td class="option_table_cell_value">
-                        <input type="text" id="txtRule4" class="option_text" value="" />
+                        <input type="text" id="txtRuleLeft4" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule4" class="option_rule" value="" />
                     </td>
                 </tr>
                 <tr>
                     <td class="option_table_cell_title">Rule 5</td>
                     <td class="option_table_cell_value">
-                        <input type="text" id="txtRule5" class="option_text" value="" />
+                        <input type="text" id="txtRuleLeft5" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule5" class="option_rule" value="" />
                     </td>
                 </tr>
                 <tr>
