@@ -1,14 +1,27 @@
-﻿function Graphics(canvas) {
+﻿function Graphics(canvas, isClear) {
     this.Canvas = canvas;
     this.Width = function () { return this.Canvas.width; }
     this.Height = function () { return this.Canvas.height; }
     this.Origin = { x: 0, y: 0 }
+    if (isClear) {
+        this.clearAll();
+    }
 }
 
 Graphics.prototype.getContext = function () {
     return this.Canvas.getContext('2d');
 }
- 
+
+Graphics.prototype.save = function () {
+    var cxt = this.getContext();
+    cxt.save();
+}
+
+Graphics.prototype.restore = function () {
+    var cxt = this.getContext();
+    cxt.restore();
+}
+
 Graphics.prototype.clearAll = function () {
     var cxt = this.getContext();
     cxt.clearRect(0, 0, this.Width, this.Height);
@@ -24,7 +37,7 @@ Graphics.prototype.getAngle = function (radian) {
 
 Graphics.prototype.rotateAngle = function (angle, pt, anchor) {
     if (!anchor) {
-        anchor = { };
+        anchor = {};
         anchor.x = 0;
         anchor.y = 0;
     }
@@ -49,7 +62,7 @@ Graphics.prototype.setOrigin = function (x, y, isRel) {
     if (!isRel) {
         // 是否为相对坐标，如果为相对坐标
         // 如果为不是相对坐标则需要按照当前坐标原点计算偏移
-        cxt.translate(-org.x, -org.y);        
+        cxt.translate(-org.x, -org.y);
     } else {
         x += org.x;
         y += org.y;
@@ -67,7 +80,7 @@ Graphics.prototype.drawLine = function (obj) {
     if (!obj) return;
 
     var cxt = this.getContext();
-        
+
     // 保存上下文绘图状态
     cxt.save();
     if (obj.width) cxt.lineWidth = obj.width;

@@ -32,6 +32,7 @@ LSystem.prototype.render = function (g, expr, param) {
         angle: param.angle
     };
 
+    //g.save();
     // 将原点设置为起始点
     g.setOrigin(info.pt.x, info.pt.y);
 
@@ -85,4 +86,5 @@ LSystem.prototype.render = function (g, expr, param) {
                 break;              
         }
     }
+    //g.restore();
 }

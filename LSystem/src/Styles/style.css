@@ -1,13 +1,61 @@
-﻿.canvas {
+﻿.with_board{
+    border: solid 1px black;
+}
+
+.with_red_board {
+    border: solid 1px red;
+}
+
+.with_green_board {
+    border: solid 1px green;
+}
+
+.with_blue_board {
+    border: solid 1px blue;
+}
+
+.canvas_container {
+    position: absolute;
     top: 10px;
-    left: 10px;
+    left: 10px;    
+}
+
+.canvas {    
     border: solid 1px gray;
 }
 
-.generation {
+.expr_editor_container {
     position: absolute;
-    top: 10px;
-    left: 510px;
-    width: 490px;
+    top: 0px;
+    left: 10px;
+}
+
+.expr_editor {    
     height: 100px;    
 }
+
+.option_table_container {
+    position: absolute;
+    top: 10px;
+    left: 520px;
+}
+
+.option_table {
+    border: solid 1px gray;    
+}
+
+.option_table_cell_title {
+    width: 80px;
+    border: solid 1px gray;    
+}
+
+.option_table_cell_value {
+    width: 200px;
+    border: solid 1px gray;    
+}
+
+.option_text {
+    width: 100%;
+}
+
+

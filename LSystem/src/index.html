@@ -3,52 +3,189 @@
 <head>
     <title></title>
     <link href="Styles/style.css" rel="stylesheet" />
+    <link href="Styles/bootstrap/bootstrap.css" rel="stylesheet" />
     <script src="Scripts/jquery-2.0.3.js"></script>
     <script src="Scripts/common.js"></script>
     <script src="Scripts/graphics.js"></script>
     <script src="Scripts/lsystem.js"></script>
     <script type="text/javascript">
+
+        var canvas;
+        var expr;
+
         $(function () {
-            var canvas = $('#drawCanvas')[0];
 
-            var cxt = canvas.getContext('2d');
+            // 初始化
+            init();
+        });
 
-            var w = canvas.width;
-            var h = canvas.height;
+        function init() {
+            canvas = $('#drawCanvas')[0];
+
+            var expr_editor_container = $('#expr_editor_container');
+            expr_editor_container.css('top', canvas.height + 15);
+
+            var expr_editor = $('#exprEditor');
+            expr_editor.css('width', canvas.width);
+
+            $('#txtOrgX').val(canvas.width / 2);
+            $('#txtOrgY').val(canvas.height - 50);
+        }
+
+        function drawGrid(cxt, step) {
+            var cw = canvas.width;
+            var ch = canvas.height;
+            
             cxt.strokeStyle = 'gray';
 
             cxt.beginPath();
-            for (var x = 0; x < w; x += 10) {
-                for (var y = 0; y < h; y += 10) {
+            for (var x = 0; x < cw; x += step) {
+                for (var y = 0; y < ch; y += step) {
                     cxt.moveTo(0, y);
-                    cxt.lineTo(w, y);
+                    cxt.lineTo(cw, y);
 
                     cxt.moveTo(x, 0);
-                    cxt.lineTo(x, h);
+                    cxt.lineTo(x, ch);
                 }
             }
             cxt.stroke();
             cxt.closePath();
+        }
 
-            var g = new Graphics(canvas);
+        function render() {            
+
+            var cxt = canvas.getContext('2d');
+            if ($('#chkDrawGrid')[0].checked) {              
+                // 绘制网格
+                var step = parseInt($('#txtStep').val());
+                drawGrid(cxt, step);
+            }
+
+            var angle = parseFloat($('#txtAngle').val())
+            var deltaAngle = parseFloat($('#txtDeltaAngle').val());
+            var step = parseFloat($('#txtStep').val());
+            var depth = parseInt($('#txtDepth').val());
+            var orgX = parseInt($('#txtOrgX').val());
+            var orgY = parseInt($('#txtOrgY').val());
+
+
             var ls = new LSystem();
-            var expr = ls.generate('F', {
-                'F': 'FF-[-F+F+F]+[+F-F-F]'
-            }, 5);
-            //expr = 'F[+F]F[+F][-F]'
-            $('#generation').val(expr);
+            var expr = ls.generate('Y', {
+                'X': 'X[-FFF][+FFF]FX',
+                'Y': 'YFY[+Y][-Y]'
+            }, depth);
+            $('#exprEditor').val(expr);
+
+            var g = new Graphics(canvas, true);
             ls.render(g, expr, {
-                origin: { x: w / 2, y: h *0.8 },
-                angle: 90,
-                step: 7,
-                deltaAngle: 22.5
-            });
-        });
+                origin: { x: orgX, y: orgY },
+                angle: angle,
+                step: step,
+                deltaAngle: deltaAngle
+            });            
+        }
 
     </script>
 </head>
 <body>
-    <canvas id="drawCanvas" width="500" height="500" class="canvas"></canvas>
-    <textarea id="generation" class="generation"></textarea>
+    <div class="canvas_container">
+        <canvas id="drawCanvas" width="500" height="500" class="canvas"></canvas>
+    </div>
+    <div id="expr_editor_container" class="expr_editor_container">
+        <textarea id="exprEditor" class="expr_editor"></textarea>
+    </div>
+    <div id="option_container" class="option_table_container">
+        <table class="table option_table">
+            <thead>
+                <tr>
+                    <td class="option_table_cell_title">Options</td>
+                    <td class="option_table_cell_value">Values</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="option_table_cell_title">Step</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtStep" class="option_text" value="5" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Angle</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtAngle" class="option_text" value="90" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">DeltaAngle</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtDeltaAngle" class="option_text" value="20" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Depth</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtDepth" class="option_text" value="10" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Axiom</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtAxiom" class="option_text" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 1</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRule1" class="option_text" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 2</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRule2" class="option_text" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 3</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRule3" class="option_text" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 4</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRule4" class="option_text" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 5</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRule5" class="option_text" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Origin</td>
+                    <td class="option_table_cell_value">
+                        X=<input type="text" id="txtOrgX" class="option_text" style="width:85%;" />
+                        Y=<input type="text" id="txtOrgY" class="option_text" style="width:85%;"/>
+                    </td>
+                </tr>                
+                <tr>
+                    <td class="option_table_cell_title">Show Grid</td>
+                    <td class="option_table_cell_value">
+                        <input type="checkbox" id="chkDrawGrid" /> Show grid on canvas
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="Render" onclick="render();" />
+                        <input type="button" value="Single Step" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </body>
 </html>
