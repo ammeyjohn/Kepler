@@ -49,24 +49,25 @@ LSystem.prototype.render = function (g, expr, param) {
                     style: 'green'
                 };
                 if (info.angle != 0) {
-                    var pt = g.rotateAngle(info.angle, obj.pt2);
+                    var pt = g.rotateAngle(-info.angle, obj.pt2);
                     obj.pt2 = pt;
-                }                
+                }
                 g.drawLine(obj);
 
                 // 将前一次绘制的终点设置为下一次的起点
-                info.pt = obj.pt2;
+                info.pt.x += obj.pt2.x;
+                info.pt.y += obj.pt2.y;
 
                 // 将起始点设置为原点
-                g.setOrigin(info.pt.x, info.pt.y, true);
+                g.setOrigin(info.pt.x, info.pt.y, false);
                 break;
-            case 'f':                
+            case 'f':
                 break;
             case '+':
-                info.angle += param.deltaAngle;
+                info.angle -= param.deltaAngle;
                 break;
             case '-':
-                info.angle -= param.deltaAngle;
+                info.angle += param.deltaAngle;
                 break;
             case '[':
                 var new_info = {
@@ -80,7 +81,7 @@ LSystem.prototype.render = function (g, expr, param) {
                 break;
             case ']':
                 info = stack.pop();
-                g.setOrigin(info.x, info.y, false);
+                g.setOrigin(info.pt.x, info.pt.y, false);
                 break;              
         }
     }

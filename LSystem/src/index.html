@@ -35,11 +35,12 @@
             var expr = ls.generate('F', {
                 'F': 'FF-[-F+F+F]+[+F-F-F]'
             }, 5);
+            //expr = 'F[+F]F[+F][-F]'
             $('#generation').val(expr);
-            ls.render(g, 'FFFFFFFFFF', {
-                origin: { x: w / 2, y: h / 2 },
-                step: 5,
+            ls.render(g, expr, {
+                origin: { x: w / 2, y: h *0.8 },
                 angle: 90,
+                step: 7,
                 deltaAngle: 22.5
             });
         });

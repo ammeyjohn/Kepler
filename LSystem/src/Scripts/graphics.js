@@ -51,7 +51,6 @@ Graphics.prototype.setOrigin = function (x, y, isRel) {
         // 如果为不是相对坐标则需要按照当前坐标原点计算偏移
         cxt.translate(-org.x, -org.y);        
     } else {
-        cxt.translate(x, y);
         x += org.x;
         y += org.y;
     }
