@@ -59,6 +59,7 @@
   <ItemGroup>
     <Content Include="bootstrap.html" />
     <Content Include="index.html" />
+    <Content Include="Scripts\benchmark.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\common.js" />

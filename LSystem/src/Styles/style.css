@@ -66,4 +66,10 @@
     width: 70%;
 }
 
-
+.bm_container {
+    position: absolute;
+    top: 10px;
+    left: 810px;
+    width: 500px;
+    height: 300px;
+}

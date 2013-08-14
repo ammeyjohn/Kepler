@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://benchmarkjs.com/docs -->
+<html lang="en" id="docs"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Benchmark.js documentation</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="http://benchmarkjs.com/_css/main.css">
+  <link rel="feed alternate" type="application/atom+xml" href="https://github.com/bestiejs/benchmark.js/commits/master.atom">
+  <!--[if lt IE 9]><script src="/_js/html5.js"></script><![endif]-->
+ </head>
+ <body>
+<h1>Benchmark.js <sup>v1.0.0</sup></h1>
+<div>
+<div>
+<h2><a id="toc"></a><code>Benchmark</code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#Benchmark"><code>Benchmark</code></a></li>
+<li><a href="http://benchmarkjs.com/docs#version"><code>Benchmark.<span class="me1">version</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#deepClone"><code>Benchmark.<span class="me1">deepClone</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#each"><code>Benchmark.<span class="me1">each</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#extend"><code>Benchmark.<span class="me1">extend</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#filter"><code>Benchmark.<span class="me1">filter</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#forEach"><code>Benchmark.<span class="me1">forEach</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#formatNumber"><code>Benchmark.<span class="me1">formatNumber</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#forOwn"><code>Benchmark.<span class="me1">forOwn</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#hasKey"><code>Benchmark.<span class="me1">hasKey</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#indexOf"><code>Benchmark.<span class="me1">indexOf</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#interpolate"><code>Benchmark.<span class="me1">interpolate</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#invoke"><code>Benchmark.<span class="me1">invoke</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#join"><code>Benchmark.<span class="me1">join</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#map"><code>Benchmark.<span class="me1">map</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#pluck"><code>Benchmark.<span class="me1">pluck</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#reduce"><code>Benchmark.<span class="me1">reduce</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">prototype</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#prototype_aborted"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">aborted</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_compiled"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">compiled</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_count"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">count</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_cycles"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">cycles</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_error"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">error</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_fn"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">fn</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_hz"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">hz</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_running"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">running</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_setup"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">setup</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_teardown"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">teardown</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_abort"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">abort</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_clone"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">clone</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_compare"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">compare</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_emit"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">emit</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_listeners"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">listeners</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_off"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">off</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_on"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">on</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_reset"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">reset</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_run"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">run</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_toString"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">toString</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">options</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#options"><code>Benchmark.<span class="me1">options</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_async"><code>Benchmark.<span class="me1">options</span>.<span class="me1">async</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_defer"><code>Benchmark.<span class="me1">options</span>.<span class="me1">defer</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_delay"><code>Benchmark.<span class="me1">options</span>.<span class="me1">delay</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_id"><code>Benchmark.<span class="me1">options</span>.<span class="me1">id</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_initCount"><code>Benchmark.<span class="me1">options</span>.<span class="me1">initCount</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_maxTime"><code>Benchmark.<span class="me1">options</span>.<span class="me1">maxTime</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_minSamples"><code>Benchmark.<span class="me1">options</span>.<span class="me1">minSamples</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_minTime"><code>Benchmark.<span class="me1">options</span>.<span class="me1">minTime</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_name"><code>Benchmark.<span class="me1">options</span>.<span class="me1">name</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_onAbort"><code>Benchmark.<span class="me1">options</span>.<span class="me1">onAbort</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_onComplete"><code>Benchmark.<span class="me1">options</span>.<span class="me1">onComplete</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_onCycle"><code>Benchmark.<span class="me1">options</span>.<span class="me1">onCycle</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_onError"><code>Benchmark.<span class="me1">options</span>.<span class="kw3">onError</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_onReset"><code>Benchmark.<span class="me1">options</span>.<span class="me1">onReset</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#options_onStart"><code>Benchmark.<span class="me1">options</span>.<span class="me1">onStart</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">platform</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#platform"><code>Benchmark.<span class="me1">platform</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#platform_description"><code>Benchmark.<span class="me1">platform</span>.<span class="me1">description</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#platform_layout"><code>Benchmark.<span class="me1">platform</span>.<span class="me1">layout</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#platform_manufacturer"><code>Benchmark.<span class="me1">platform</span>.<span class="me1">manufacturer</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#platform_name"><code>Benchmark.<span class="me1">platform</span>.<span class="me1">name</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#platform_os"><code>Benchmark.<span class="me1">platform</span>.<span class="me1">os</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#platform_prerelease"><code>Benchmark.<span class="me1">platform</span>.<span class="me1">prerelease</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#platform_product"><code>Benchmark.<span class="me1">platform</span>.<span class="me1">product</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#platform_version"><code>Benchmark.<span class="me1">platform</span>.<span class="me1">version</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#platform_toString"><code>Benchmark.<span class="me1">platform</span>.<span class="me1">toString</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">support</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#support"><code>Benchmark.<span class="me1">support</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_air"><code>Benchmark.<span class="me1">support</span>.<span class="me1">air</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_argumentsClass"><code>Benchmark.<span class="me1">support</span>.<span class="me1">argumentsClass</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_browser"><code>Benchmark.<span class="me1">support</span>.<span class="me1">browser</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_charByIndex"><code>Benchmark.<span class="me1">support</span>.<span class="me1">charByIndex</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_charByOwnIndex"><code>Benchmark.<span class="me1">support</span>.<span class="me1">charByOwnIndex</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_decompilation"><code>Benchmark.<span class="me1">support</span>.<span class="me1">decompilation</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_descriptors"><code>Benchmark.<span class="me1">support</span>.<span class="me1">descriptors</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_getAllKeys"><code>Benchmark.<span class="me1">support</span>.<span class="me1">getAllKeys</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_iteratesOwnLast"><code>Benchmark.<span class="me1">support</span>.<span class="me1">iteratesOwnLast</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_java"><code>Benchmark.<span class="me1">support</span>.<span class="me1">java</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_nodeClass"><code>Benchmark.<span class="me1">support</span>.<span class="me1">nodeClass</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#support_timeout"><code>Benchmark.<span class="me1">support</span>.<span class="me1">timeout</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#prototype_stats"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#stats_deviation"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">deviation</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#stats_mean"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">mean</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#stats_moe"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">moe</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#stats_rme"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">rme</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#stats_sample"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">sample</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#stats_sem"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">sem</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#stats_variance"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">variance</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#prototype_times"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#times_cycle"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span>.<span class="me1">cycle</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#times_elapsed"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span>.<span class="me1">elapsed</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#times_period"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span>.<span class="me1">period</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#times_timeStamp"><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span>.<span class="me1">timeStamp</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Deferred</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#Deferred"><code>Benchmark.<span class="me1">Deferred</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#Deferred_prototype_benchmark"><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span>.<span class="me1">benchmark</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Deferred_prototype_cycles"><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span>.<span class="me1">cycles</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Deferred_prototype_elapsed"><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span>.<span class="me1">elapsed</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Deferred_prototype_timeStamp"><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span>.<span class="me1">timeStamp</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Event</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#Event"><code>Benchmark.<span class="me1">Event</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#Event_prototype_aborted"><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">aborted</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Event_prototype_cancelled"><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">cancelled</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Event_prototype_currentTarget"><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">currentTarget</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Event_prototype_result"><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">result</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Event_prototype_target"><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">target</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Event_prototype_timeStamp"><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">timeStamp</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Event_prototype_type"><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">type</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Suite</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#Suite"><code>Benchmark.<span class="me1">Suite</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_aborted"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">aborted</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_length"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">length</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_running"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">running</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_abort"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">abort</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_add"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">add</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_clone"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">clone</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_emit"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">emit</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_filter"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">filter</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_forEach"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">forEach</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_indexOf"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">indexOf</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_invoke"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">invoke</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_join"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">join</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_listeners"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">listeners</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_map"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">map</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_off"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">off</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#prototype_on"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">on</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_pluck"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">pluck</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_pop"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">pop</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_push"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">push</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_reduce"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">reduce</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_reset"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">reset</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_reverse"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">reverse</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_run"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">run</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_shift"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">shift</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_slice"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">slice</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_sort"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">sort</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_splice"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">splice</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_prototype_unshift"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">unshift</span></code></a></li>
+</ul>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">options</span></code></h2>
+<ul>
+<li><a href="http://benchmarkjs.com/docs#Suite_options"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">options</span></code></a></li>
+<li><a href="http://benchmarkjs.com/docs#Suite_options_name"><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">options</span>.<span class="me1">name</span></code></a></li>
+</ul>
+</div>
+</div>
+<div>
+<div>
+<h2><code>Benchmark</code></h2>
+<div>
+<h3><a id="Benchmark"></a><code>Benchmark<span class="br0">(</span>name<span class="sy0">,</span> fn <span class="br0">[</span><span class="sy0">,</span> options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Benchmark">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L404" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>The Benchmark constructor.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>name</code> <em>(String)</em>: A name to identify the benchmark.</li>
+<li><code>fn</code> <em>(Function|String)</em>: The test to benchmark.</li>
+<li><code><span class="br0">[</span>options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span></code> <em>(Object)</em>: Options object.</li>
+</ol>
+<h4>Example</h4>
+<pre><code><span class="co1">// basic usage (the `new` operator is optional)</span><br><span class="kw2">var</span> bench <span class="sy0">=</span> <span class="kw2">new</span> Benchmark<span class="br0">(</span>fn<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or using a name first</span><br><span class="kw2">var</span> bench <span class="sy0">=</span> <span class="kw2">new</span> Benchmark<span class="br0">(</span><span class="st0">'foo'</span><span class="sy0">,</span> fn<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or with options</span><br><span class="kw2">var</span> bench <span class="sy0">=</span> <span class="kw2">new</span> Benchmark<span class="br0">(</span><span class="st0">'foo'</span><span class="sy0">,</span> fn<span class="sy0">,</span> <span class="br0">{</span><br><br>&nbsp; <span class="co1">// displayed by Benchmark#toString if `name` is not available</span><br>&nbsp; <span class="st0">'id'</span><span class="sy0">:</span> <span class="st0">'xyz'</span><span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called when the benchmark starts running</span><br>&nbsp; <span class="st0">'onStart'</span><span class="sy0">:</span> onStart<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called after each run cycle</span><br>&nbsp; <span class="st0">'onCycle'</span><span class="sy0">:</span> onCycle<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called when aborted</span><br>&nbsp; <span class="st0">'onAbort'</span><span class="sy0">:</span> onAbort<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called when a test errors</span><br>&nbsp; <span class="st0">'onError'</span><span class="sy0">:</span> <span class="kw3">onError</span><span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called when reset</span><br>&nbsp; <span class="st0">'onReset'</span><span class="sy0">:</span> onReset<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called when the benchmark completes running</span><br>&nbsp; <span class="st0">'onComplete'</span><span class="sy0">:</span> onComplete<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// compiled/called before the test loop</span><br>&nbsp; <span class="st0">'setup'</span><span class="sy0">:</span> setup<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// compiled/called after the test loop</span><br>&nbsp; <span class="st0">'teardown'</span><span class="sy0">:</span> teardown<br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or name and options</span><br><span class="kw2">var</span> bench <span class="sy0">=</span> <span class="kw2">new</span> Benchmark<span class="br0">(</span><span class="st0">'foo'</span><span class="sy0">,</span> <span class="br0">{</span><br><br>&nbsp; <span class="co1">// a flag to indicate the benchmark is deferred</span><br>&nbsp; <span class="st0">'defer'</span><span class="sy0">:</span> <span class="kw2">true</span><span class="sy0">,</span><br><br>&nbsp; <span class="co1">// benchmark test function</span><br>&nbsp; <span class="st0">'fn'</span><span class="sy0">:</span> <span class="kw2">function</span><span class="br0">(</span>deferred<span class="br0">)</span> <span class="br0">{</span><br>&nbsp; &nbsp; <span class="co1">// call resolve() when the deferred test is finished</span><br>&nbsp; &nbsp; deferred.<span class="me1">resolve</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>&nbsp; <span class="br0">}</span><br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or options only</span><br><span class="kw2">var</span> bench <span class="sy0">=</span> <span class="kw2">new</span> Benchmark<span class="br0">(</span><span class="br0">{</span><br><br>&nbsp; <span class="co1">// benchmark name</span><br>&nbsp; <span class="st0">'name'</span><span class="sy0">:</span> <span class="st0">'foo'</span><span class="sy0">,</span><br><br>&nbsp; <span class="co1">// benchmark test as a string</span><br>&nbsp; <span class="st0">'fn'</span><span class="sy0">:</span> <span class="st0">'[1,2,3,4].sort()'</span><br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// a test’s `this` binding is set to the benchmark instance</span><br><span class="kw2">var</span> bench <span class="sy0">=</span> <span class="kw2">new</span> Benchmark<span class="br0">(</span><span class="st0">'foo'</span><span class="sy0">,</span> <span class="kw2">function</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; <span class="st0">'My name is '</span>.<span class="me1">concat</span><span class="br0">(</span><span class="kw1">this</span>.<span class="me1">name</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// My name is foo</span><br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="version"></a><code>Benchmark.<span class="me1">version</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#version">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3268" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String)</em>: The semantic version number.</p>
+<hr>
+</div>
+<div>
+<h3><a id="deepClone"></a><code>Benchmark.<span class="me1">deepClone</span><span class="br0">(</span>value<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#deepClone">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1225" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>A deep clone utility.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>value</code> <em>(Mixed)</em>: The value to clone.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Mixed)</em>: The cloned value.</p>
+<hr>
+</div>
+<div>
+<h3><a id="each"></a><code>Benchmark.<span class="me1">each</span><span class="br0">(</span>object<span class="sy0">,</span> callback<span class="sy0">,</span> thisArg<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#each">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1400" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An iteration utility for arrays and objects. Callbacks may terminate the loop by explicitly returning <code><span class="kw2">false</span></code>.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>object</code> <em>(Array|Object)</em>: The object to iterate over.</li>
+<li><code>callback</code> <em>(Function)</em>: The function called per iteration.</li>
+<li><code>thisArg</code> <em>(Mixed)</em>: The <code><span class="kw1">this</span></code> binding for the callback.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array, Object)</em>: Returns the object iterated over.</p>
+<hr>
+</div>
+<div>
+<h3><a id="extend"></a><code>Benchmark.<span class="me1">extend</span><span class="br0">(</span>destination <span class="br0">[</span><span class="sy0">,</span> source<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#extend">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1446" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Copies enumerable properties from the source(s) object to the destination object.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>destination</code> <em>(Object)</em>: The destination object.</li>
+<li><code><span class="br0">[</span>source<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span></code> <em>(Object)</em>: The source object.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The destination object.</p>
+<hr>
+</div>
+<div>
+<h3><a id="filter"></a><code>Benchmark.<span class="me1">filter</span><span class="br0">(</span>array<span class="sy0">,</span> callback<span class="sy0">,</span> thisArg<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#filter">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1485" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>A generic <code>Array#<span class="me1">filter</span></code> like method.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>array</code> <em>(Array)</em>: The array to iterate over.</li>
+<li><code>callback</code> <em>(Function|String)</em>: The function/alias called per iteration.</li>
+<li><code>thisArg</code> <em>(Mixed)</em>: The <code><span class="kw1">this</span></code> binding for the callback.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: A new array of values that passed callback filter.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// get odd numbers</span><br>Benchmark.<span class="me1">filter</span><span class="br0">(</span><span class="br0">[</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="sy0">,</span> <span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">5</span><span class="br0">]</span><span class="sy0">,</span> <span class="kw2">function</span><span class="br0">(</span>n<span class="br0">)</span> <span class="br0">{</span><br>&nbsp; <span class="kw1">return</span> n <span class="sy0">%</span> <span class="nu0">2</span><span class="sy0">;</span><br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// -&gt; [1, 3, 5];</span><br><br><span class="co1">// get fastest benchmarks</span><br>Benchmark.<span class="me1">filter</span><span class="br0">(</span>benches<span class="sy0">,</span> <span class="st0">'fastest'</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// get slowest benchmarks</span><br>Benchmark.<span class="me1">filter</span><span class="br0">(</span>benches<span class="sy0">,</span> <span class="st0">'slowest'</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// get benchmarks that completed without erroring</span><br>Benchmark.<span class="me1">filter</span><span class="br0">(</span>benches<span class="sy0">,</span> <span class="st0">'successful'</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="forEach"></a><code>Benchmark.<span class="me1">forEach</span><span class="br0">(</span>array<span class="sy0">,</span> callback<span class="sy0">,</span> thisArg<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#forEach">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1518" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>A generic <code>Array#<span class="me1">forEach</span></code> like method. Callbacks may terminate the loop by explicitly returning <code><span class="kw2">false</span></code>.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>array</code> <em>(Array)</em>: The array to iterate over.</li>
+<li><code>callback</code> <em>(Function)</em>: The function called per iteration.</li>
+<li><code>thisArg</code> <em>(Mixed)</em>: The <code><span class="kw1">this</span></code> binding for the callback.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: Returns the array iterated over.</p>
+<hr>
+</div>
+<div>
+<h3><a id="formatNumber"></a><code>Benchmark.<span class="me1">formatNumber</span><span class="br0">(</span>number<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#formatNumber">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1557" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Converts a number to a more readable comma-separated string representation.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>number</code> <em>(Number)</em>: The number to convert.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(String)</em>: The more readable string representation.</p>
+<hr>
+</div>
+<div>
+<h3><a id="forOwn"></a><code>Benchmark.<span class="me1">forOwn</span><span class="br0">(</span>object<span class="sy0">,</span> callback<span class="sy0">,</span> thisArg<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#forOwn">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1545" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Iterates over an object’s own properties, executing the <code>callback</code> for each. Callbacks may terminate the loop by explicitly returning <code><span class="kw2">false</span></code>.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>object</code> <em>(Object)</em>: The object to iterate over.</li>
+<li><code>callback</code> <em>(Function)</em>: The function executed per own property.</li>
+<li><code>thisArg</code> <em>(Mixed)</em>: The <code><span class="kw1">this</span></code> binding for the callback.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: Returns the object iterated over.</p>
+<hr>
+</div>
+<div>
+<h3><a id="hasKey"></a><code>Benchmark.<span class="me1">hasKey</span><span class="br0">(</span>object<span class="sy0">,</span> key<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#hasKey">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1572" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Checks if an object has the specified key as a direct property.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>object</code> <em>(Object)</em>: The object to check.</li>
+<li><code>key</code> <em>(String)</em>: The key to check for.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Boolean)</em>: Returns <code><span class="kw2">true</span></code> if key is a direct property, else <code><span class="kw2">false</span></code>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="indexOf"></a><code>Benchmark.<span class="me1">indexOf</span><span class="br0">(</span>array<span class="sy0">,</span> value <span class="br0">[</span><span class="sy0">,</span> fromIndex<span class="sy0">=</span><span class="nu0">0</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#indexOf">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1608" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>A generic <code>Array#<span class="me1">indexOf</span></code> like method.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>array</code> <em>(Array)</em>: The array to iterate over.</li>
+<li><code>value</code> <em>(Mixed)</em>: The value to search for.</li>
+<li><code><span class="br0">[</span>fromIndex<span class="sy0">=</span><span class="nu0">0</span><span class="br0">]</span></code> <em>(Number)</em>: The index to start searching from.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Number)</em>: The index of the matched value or <code><span class="sy0">-</span><span class="nu0">1</span></code>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="interpolate"></a><code>Benchmark.<span class="me1">interpolate</span><span class="br0">(</span>string<span class="sy0">,</span> object<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#interpolate">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1630" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Modify a string by replacing named tokens with matching object property values.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>string</code> <em>(String)</em>: The string to modify.</li>
+<li><code>object</code> <em>(Object)</em>: The template object.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(String)</em>: The modified string.</p>
+<hr>
+</div>
+<div>
+<h3><a id="invoke"></a><code>Benchmark.<span class="me1">invoke</span><span class="br0">(</span>benches<span class="sy0">,</span> name <span class="br0">[</span><span class="sy0">,</span> arg1<span class="sy0">,</span> arg2<span class="sy0">,</span> …<span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#invoke">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1677" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Invokes a method on all items in an array.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>benches</code> <em>(Array)</em>: Array of benchmarks to iterate over.</li>
+<li><code>name</code> <em>(String|Object)</em>: The name of the method to invoke OR options object.</li>
+<li><code><span class="br0">[</span>arg1<span class="sy0">,</span> arg2<span class="sy0">,</span> …<span class="br0">]</span></code> <em>(Mixed)</em>: Arguments to invoke the method with.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: A new array of values returned from each method invoked.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// invoke `reset` on all benchmarks</span><br>Benchmark.<span class="me1">invoke</span><span class="br0">(</span>benches<span class="sy0">,</span> <span class="st0">'reset'</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// invoke `emit` with arguments</span><br>Benchmark.<span class="me1">invoke</span><span class="br0">(</span>benches<span class="sy0">,</span> <span class="st0">'emit'</span><span class="sy0">,</span> <span class="st0">'complete'</span><span class="sy0">,</span> listener<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// invoke `run(true)`, treat benchmarks as a queue, and register invoke callbacks</span><br>Benchmark.<span class="me1">invoke</span><span class="br0">(</span>benches<span class="sy0">,</span> <span class="br0">{</span><br><br>&nbsp; <span class="co1">// invoke the `run` method</span><br>&nbsp; <span class="st0">'name'</span><span class="sy0">:</span> <span class="st0">'run'</span><span class="sy0">,</span><br><br>&nbsp; <span class="co1">// pass a single argument</span><br>&nbsp; <span class="st0">'args'</span><span class="sy0">:</span> <span class="kw2">true</span><span class="sy0">,</span><br><br>&nbsp; <span class="co1">// treat as queue, removing benchmarks from front of `benches` until empty</span><br>&nbsp; <span class="st0">'queued'</span><span class="sy0">:</span> <span class="kw2">true</span><span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called before any benchmarks have been invoked.</span><br>&nbsp; <span class="st0">'onStart'</span><span class="sy0">:</span> onStart<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called between invoking benchmarks</span><br>&nbsp; <span class="st0">'onCycle'</span><span class="sy0">:</span> onCycle<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called after all benchmarks have been invoked.</span><br>&nbsp; <span class="st0">'onComplete'</span><span class="sy0">:</span> onComplete<br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="join"></a><code>Benchmark.<span class="me1">join</span><span class="br0">(</span>object <span class="br0">[</span><span class="sy0">,</span> separator1<span class="sy0">=</span><span class="st0">','</span><span class="sy0">,</span> separator2<span class="sy0">=</span><span class="st0">': '</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#join">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1831" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Creates a string of joined array values or object key-value pairs.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>object</code> <em>(Array|Object)</em>: The object to operate on.</li>
+<li><code><span class="br0">[</span>separator1<span class="sy0">=</span><span class="st0">','</span><span class="br0">]</span></code> <em>(String)</em>: The separator used between key-value pairs.</li>
+<li><code><span class="br0">[</span>separator2<span class="sy0">=</span><span class="st0">': '</span><span class="br0">]</span></code> <em>(String)</em>: The separator used between keys and values.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(String)</em>: The joined result.</p>
+<hr>
+</div>
+<div>
+<h3><a id="map"></a><code>Benchmark.<span class="me1">map</span><span class="br0">(</span>array<span class="sy0">,</span> callback<span class="sy0">,</span> thisArg<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#map">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1853" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>A generic <code>Array#<span class="me1">map</span></code> like method.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>array</code> <em>(Array)</em>: The array to iterate over.</li>
+<li><code>callback</code> <em>(Function)</em>: The function called per iteration.</li>
+<li><code>thisArg</code> <em>(Mixed)</em>: The <code><span class="kw1">this</span></code> binding for the callback.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: A new array of values returned by the callback.</p>
+<hr>
+</div>
+<div>
+<h3><a id="pluck"></a><code>Benchmark.<span class="me1">pluck</span><span class="br0">(</span>array<span class="sy0">,</span> property<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#pluck">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1869" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Retrieves the value of a specified property from all items in an array.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>array</code> <em>(Array)</em>: The array to iterate over.</li>
+<li><code>property</code> <em>(String)</em>: The property to pluck.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: A new array of property values.</p>
+<hr>
+</div>
+<div>
+<h3><a id="reduce"></a><code>Benchmark.<span class="me1">reduce</span><span class="br0">(</span>array<span class="sy0">,</span> callback<span class="sy0">,</span> accumulator<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#reduce">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1885" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>A generic <code>Array#<span class="me1">reduce</span></code> like method.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>array</code> <em>(Array)</em>: The array to iterate over.</li>
+<li><code>callback</code> <em>(Function)</em>: The function called per iteration.</li>
+<li><code>accumulator</code> <em>(Mixed)</em>: Initial value of the accumulator.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Mixed)</em>: The accumulator.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">prototype</span></code></h2>
+<div>
+<h3><a id="prototype_aborted"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">aborted</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_aborted">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3378" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: A flag to indicate if the benchmark is aborted.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_compiled"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">compiled</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_compiled">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3354" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Function, String)</em>: The compiled test function.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_count"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">count</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_count">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3330" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The number of times a test was executed.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_cycles"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">cycles</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_cycles">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3338" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The number of cycles performed while benchmarking.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_error"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">error</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_error">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3362" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: The error object if the test failed.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_fn"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">fn</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_fn">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3370" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Function, String)</em>: The test to benchmark.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_hz"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">hz</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_hz">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3346" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The number of executions per second.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_running"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">running</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_running">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3386" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: A flag to indicate if the benchmark is running.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_setup"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">setup</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_setup">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3449" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Function, String)</em>: Compiled into the test and executed immediately <strong>before</strong> the test loop.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// basic usage</span><br><span class="kw2">var</span> bench <span class="sy0">=</span> Benchmark<span class="br0">(</span><span class="br0">{</span><br>&nbsp; <span class="st0">'setup'</span><span class="sy0">:</span> <span class="kw2">function</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; &nbsp; <span class="kw2">var</span> c <span class="sy0">=</span> <span class="kw1">this</span>.<span class="me1">count</span><span class="sy0">,</span><br>&nbsp; &nbsp; &nbsp; &nbsp; element <span class="sy0">=</span> document.<span class="me1">getElementById</span><span class="br0">(</span><span class="st0">'container'</span><span class="br0">)</span><span class="sy0">;</span><br>&nbsp; &nbsp; <span class="kw1">while</span> <span class="br0">(</span>c<span class="sy0">--</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; &nbsp; &nbsp; element.<span class="me1">appendChild</span><span class="br0">(</span>document.<span class="me1">createElement</span><span class="br0">(</span><span class="st0">'div'</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span><br>&nbsp; &nbsp; <span class="br0">}</span><br>&nbsp; <span class="br0">}</span><span class="sy0">,</span><br>&nbsp; <span class="st0">'fn'</span><span class="sy0">:</span> <span class="kw2">function</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; &nbsp; element.<span class="me1">removeChild</span><span class="br0">(</span>element.<span class="me1">lastChild</span><span class="br0">)</span><span class="sy0">;</span><br>&nbsp; <span class="br0">}</span><br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// compiles to something like:</span><br><span class="kw2">var</span> c <span class="sy0">=</span> <span class="kw1">this</span>.<span class="me1">count</span><span class="sy0">,</span><br>&nbsp; &nbsp; element <span class="sy0">=</span> document.<span class="me1">getElementById</span><span class="br0">(</span><span class="st0">'container'</span><span class="br0">)</span><span class="sy0">;</span><br><span class="kw1">while</span> <span class="br0">(</span>c<span class="sy0">--</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; element.<span class="me1">appendChild</span><span class="br0">(</span>document.<span class="me1">createElement</span><span class="br0">(</span><span class="st0">'div'</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span><br><span class="br0">}</span><br><span class="kw2">var</span> start <span class="sy0">=</span> <span class="kw2">new</span> Date<span class="sy0">;</span><br><span class="kw1">while</span> <span class="br0">(</span>count<span class="sy0">--</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; element.<span class="me1">removeChild</span><span class="br0">(</span>element.<span class="me1">lastChild</span><span class="br0">)</span><span class="sy0">;</span><br><span class="br0">}</span><br><span class="kw2">var</span> end <span class="sy0">=</span> <span class="kw2">new</span> Date <span class="sy0">-</span> start<span class="sy0">;</span><br><br><span class="co1">// or using strings</span><br><span class="kw2">var</span> bench <span class="sy0">=</span> Benchmark<span class="br0">(</span><span class="br0">{</span><br>&nbsp; <span class="st0">'setup'</span><span class="sy0">:</span> <span class="st0">'<span class="es0">\</span><br>&nbsp; &nbsp; var a = 0;<span class="es0">\n</span><span class="es0">\</span><br>&nbsp; &nbsp; (function() {<span class="es0">\n</span><span class="es0">\</span><br>&nbsp; &nbsp; &nbsp; (function() {<span class="es0">\n</span><span class="es0">\</span><br>&nbsp; &nbsp; &nbsp; &nbsp; (function() {'</span><span class="sy0">,</span><br>&nbsp; <span class="st0">'fn'</span><span class="sy0">:</span> <span class="st0">'a += 1;'</span><span class="sy0">,</span><br>&nbsp; <span class="st0">'teardown'</span><span class="sy0">:</span> <span class="st0">'<span class="es0">\</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}())<span class="es0">\n</span><span class="es0">\</span><br>&nbsp; &nbsp; &nbsp; &nbsp;}())<span class="es0">\n</span><span class="es0">\</span><br>&nbsp; &nbsp; &nbsp;}())'</span><br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// compiles to something like:</span><br><span class="kw2">var</span> a <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span><br><span class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; <span class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; &nbsp; <span class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; &nbsp; &nbsp; <span class="kw2">var</span> start <span class="sy0">=</span> <span class="kw2">new</span> Date<span class="sy0">;</span><br>&nbsp; &nbsp; &nbsp; <span class="kw1">while</span> <span class="br0">(</span>count<span class="sy0">--</span><span class="br0">)</span> <span class="br0">{</span><br>&nbsp; &nbsp; &nbsp; &nbsp; a <span class="sy0">+=</span> <span class="nu0">1</span><span class="sy0">;</span><br>&nbsp; &nbsp; &nbsp; <span class="br0">}</span><br>&nbsp; &nbsp; &nbsp; <span class="kw2">var</span> end <span class="sy0">=</span> <span class="kw2">new</span> Date <span class="sy0">-</span> start<span class="sy0">;</span><br>&nbsp; &nbsp; <span class="br0">}</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><br>&nbsp; <span class="br0">}</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><br><span class="br0">}</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_teardown"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">teardown</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_teardown">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3457" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Function, String)</em>: Compiled into the test and executed immediately <strong>after</strong> the test loop.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_abort"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">abort</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_abort">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2218" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Aborts the benchmark without recording times.</p>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The benchmark instance.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_clone"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">clone</span><span class="br0">(</span>options<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_clone">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2257" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Creates a new benchmark using the same test and options.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>options</code> <em>(Object)</em>: Options object to overwrite cloned options.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The new benchmark instance.</p>
+<h4>Example</h4>
+<pre><code><span class="kw2">var</span> bizarro <span class="sy0">=</span> bench.<span class="me1">clone</span><span class="br0">(</span><span class="br0">{</span><br>&nbsp; <span class="st0">'name'</span><span class="sy0">:</span> <span class="st0">'doppelganger'</span><br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_compare"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">compare</span><span class="br0">(</span>other<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_compare">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2280" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Determines if a benchmark is faster than another.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>other</code> <em>(Object)</em>: The benchmark to compare.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Number)</em>: Returns <code><span class="sy0">-</span><span class="nu0">1</span></code> if slower, <code><span class="nu0">1</span></code> if faster, and <code>0</code> if indeterminate.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_emit"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">emit</span><span class="br0">(</span>type<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_emit">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2095" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Executes all registered listeners of the specified event type.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>type</code> <em>(String|Object)</em>: The event type or object.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Mixed)</em>: Returns the return value of the last listener executed.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_listeners"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">listeners</span><span class="br0">(</span>type<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_listeners">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2125" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Returns an array of event listeners for a given type that can be manipulated to add or remove listeners.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>type</code> <em>(String)</em>: The event type.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: The listeners array.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_off"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">off</span><span class="br0">(</span><span class="br0">[</span>type<span class="sy0">,</span> listener<span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_off">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2158" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Unregisters a listener for the specified event type(s), or unregisters all listeners for the specified event type(s), or unregisters all listeners for all event types.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code><span class="br0">[</span>type<span class="br0">]</span></code> <em>(String)</em>: The event type.</li>
+<li><code><span class="br0">[</span>listener<span class="br0">]</span></code> <em>(Function)</em>: The function to unregister.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The benchmark instance.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// unregister a listener for an event type</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="st0">'cycle'</span><span class="sy0">,</span> listener<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// unregister a listener for multiple event types</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="st0">'start cycle'</span><span class="sy0">,</span> listener<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// unregister all listeners for an event type</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="st0">'cycle'</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// unregister all listeners for multiple event types</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="st0">'start cycle complete'</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// unregister all listeners for all event types</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_on"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">on</span><span class="br0">(</span>type<span class="sy0">,</span> listener<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_on">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2197" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Registers a listener for the specified event type(s).</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>type</code> <em>(String)</em>: The event type.</li>
+<li><code>listener</code> <em>(Function)</em>: The function to register.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The benchmark instance.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// register a listener for an event type</span><br>bench.<span class="me1">on</span><span class="br0">(</span><span class="st0">'cycle'</span><span class="sy0">,</span> listener<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// register a listener for multiple event types</span><br>bench.<span class="me1">on</span><span class="br0">(</span><span class="st0">'start cycle'</span><span class="sy0">,</span> listener<span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_reset"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">reset</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_reset">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2334" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Reset properties and abort if running.</p>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The benchmark instance.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_run"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">run</span><span class="br0">(</span><span class="br0">[</span>options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_run">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3000" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Runs the benchmark.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code><span class="br0">[</span>options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span></code> <em>(Object)</em>: Options object.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The benchmark instance.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// basic usage</span><br>bench.<span class="me1">run</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or with options</span><br>bench.<span class="me1">run</span><span class="br0">(</span><span class="br0">{</span> <span class="st0">'async'</span><span class="sy0">:</span> <span class="kw2">true</span> <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_toString"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">toString</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_toString">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2405" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Displays relevant benchmark information when coerced to a string.</p>
+<h4>Returns</h4>
+<p><em>(String)</em>: A string representation of the benchmark instance.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">options</span></code></h2>
+<div>
+<h3><a id="options"></a><code>Benchmark.<span class="me1">options</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3049" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: The default options copied by benchmark instances.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_async"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">async</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_async">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3058" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: A flag to indicate that benchmark cycles will execute asynchronously by default.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_defer"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">defer</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_defer">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3066" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: A flag to indicate that the benchmark clock is deferred.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_delay"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">delay</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_delay">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3073" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The delay between test cycles <em>(secs)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_id"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">id</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_id">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3082" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String)</em>: Displayed by Benchmark#toString when a <code>name</code> is not available <em>(auto-generated if absent)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_initCount"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">initCount</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_initCount">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3090" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The default number of times to execute a test on a benchmark’s first cycle.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_maxTime"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">maxTime</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_maxTime">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3100" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The maximum time a benchmark is allowed to run before finishing <em>(secs)</em>.</p>
+<p>Note: Cycle delays aren't counted toward the maximum time.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_minSamples"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">minSamples</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_minSamples">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3108" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The minimum sample size required to perform statistical analysis.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_minTime"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">minTime</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_minTime">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3116" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The time needed to reduce the percent uncertainty of measurement to <code><span class="nu0">1</span></code>% <em>(secs)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_name"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">name</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_name">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3124" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String)</em>: The name of the benchmark.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_onAbort"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">onAbort</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_onAbort">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3132" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An event listener called when the benchmark is aborted.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_onComplete"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">onComplete</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_onComplete">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3140" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An event listener called when the benchmark completes running.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_onCycle"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">onCycle</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_onCycle">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3148" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An event listener called after each run cycle.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_onError"></a><code>Benchmark.<span class="me1">options</span>.<span class="kw3">onError</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_onError">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3156" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An event listener called when a test errors.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_onReset"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">onReset</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_onReset">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3164" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An event listener called when the benchmark is reset.</p>
+<hr>
+</div>
+<div>
+<h3><a id="options_onStart"></a><code>Benchmark.<span class="me1">options</span>.<span class="me1">onStart</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#options_onStart">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3172" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An event listener called when the benchmark starts running.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">platform</span></code></h2>
+<div>
+<h3><a id="platform"></a><code>Benchmark.<span class="me1">platform</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3183" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: Platform object with properties describing things like browser name, version, and operating system.</p>
+<hr>
+</div>
+<div>
+<h3><a id="platform_description"></a><code>Benchmark.<span class="me1">platform</span>.<span class="me1">description</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform_description">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3191" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String)</em>: The platform description.</p>
+<hr>
+</div>
+<div>
+<h3><a id="platform_layout"></a><code>Benchmark.<span class="me1">platform</span>.<span class="me1">layout</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform_layout">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3199" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String, Null)</em>: The name of the browser layout engine.</p>
+<hr>
+</div>
+<div>
+<h3><a id="platform_manufacturer"></a><code>Benchmark.<span class="me1">platform</span>.<span class="me1">manufacturer</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform_manufacturer">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3223" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String, Null)</em>: The name of the product’s manufacturer.</p>
+<hr>
+</div>
+<div>
+<h3><a id="platform_name"></a><code>Benchmark.<span class="me1">platform</span>.<span class="me1">name</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform_name">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3215" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String, Null)</em>: The name of the browser/environment.</p>
+<hr>
+</div>
+<div>
+<h3><a id="platform_os"></a><code>Benchmark.<span class="me1">platform</span>.<span class="me1">os</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform_os">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3231" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String, Null)</em>: The name of the operating system.</p>
+<hr>
+</div>
+<div>
+<h3><a id="platform_prerelease"></a><code>Benchmark.<span class="me1">platform</span>.<span class="me1">prerelease</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform_prerelease">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3239" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String, Null)</em>: The alpha/beta release indicator.</p>
+<hr>
+</div>
+<div>
+<h3><a id="platform_product"></a><code>Benchmark.<span class="me1">platform</span>.<span class="me1">product</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform_product">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3207" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String, Null)</em>: The name of the product hosting the browser.</p>
+<hr>
+</div>
+<div>
+<h3><a id="platform_version"></a><code>Benchmark.<span class="me1">platform</span>.<span class="me1">version</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform_version">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3247" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String, Null)</em>: The browser/environment version.</p>
+<hr>
+</div>
+<div>
+<h3><a id="platform_toString"></a><code>Benchmark.<span class="me1">platform</span>.<span class="me1">toString</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#platform_toString">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3256" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Return platform description when the platform object is coerced to a string.</p>
+<h4>Returns</h4>
+<p><em>(String)</em>: The platform description.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">support</span></code></h2>
+<div>
+<h3><a id="support"></a><code>Benchmark.<span class="me1">support</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L135" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: An object used to flag environments/features.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_air"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">air</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_air">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L145" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect Adobe AIR.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_argumentsClass"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">argumentsClass</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_argumentsClass">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L153" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect if <code>arguments</code> objects have the correct internal [[Class]] value.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_browser"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">browser</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_browser">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L161" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect if in a browser environment.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_charByIndex"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">charByIndex</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_charByIndex">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L169" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect if strings support accessing characters by index.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_charByOwnIndex"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">charByOwnIndex</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_charByOwnIndex">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L179" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect if strings have indexes as own properties.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_decompilation"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">decompilation</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_decompilation">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L207" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect if functions support decompilation.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_descriptors"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">descriptors</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_descriptors">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L228" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect ES5+ property descriptor API.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_getAllKeys"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">getAllKeys</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_getAllKeys">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L242" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect ES5+ Object.getOwnPropertyNames().</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_iteratesOwnLast"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">iteratesOwnFirst</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_iteratesOwnLast">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L255" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect if own properties are iterated before inherited properties <em>(all but IE &lt; <code><span class="nu0">9</span></code>)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_java"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">java</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_java">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L190" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect if Java is enabled/exposed.</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_nodeClass"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">nodeClass</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_nodeClass">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L272" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect if a node’s [[Class]] is resolvable <em>(all but IE &lt; <code><span class="nu0">9</span></code>)</em> and that the JS engine errors when attempting to coerce an object to a string without a <code>toString</code> property value of <code><span class="kw1">typeof</span></code> "function".</p>
+<hr>
+</div>
+<div>
+<h3><a id="support_timeout"></a><code>Benchmark.<span class="me1">support</span>.<span class="me1">timeout</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#support_timeout">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L198" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: Detect if the Timers API exists.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span></code></h2>
+<div>
+<h3><a id="prototype_stats"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_stats">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3465" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: An object of stats including mean, margin or error, and standard deviation.</p>
+<hr>
+</div>
+<div>
+<h3><a id="stats_deviation"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">deviation</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#stats_deviation">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3497" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The sample standard deviation.</p>
+<hr>
+</div>
+<div>
+<h3><a id="stats_mean"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">mean</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#stats_mean">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3505" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The sample arithmetic mean.</p>
+<hr>
+</div>
+<div>
+<h3><a id="stats_moe"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">moe</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#stats_moe">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3473" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The margin of error.</p>
+<hr>
+</div>
+<div>
+<h3><a id="stats_rme"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">rme</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#stats_rme">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3481" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The relative margin of error <em>(expressed as a percentage of the mean)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="stats_sample"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">sample</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#stats_sample">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3513" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Array)</em>: The array of sampled periods.</p>
+<hr>
+</div>
+<div>
+<h3><a id="stats_sem"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">sem</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#stats_sem">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3489" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The standard error of the mean.</p>
+<hr>
+</div>
+<div>
+<h3><a id="stats_variance"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">stats</span>.<span class="me1">variance</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#stats_variance">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3521" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The sample variance.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span></code></h2>
+<div>
+<h3><a id="prototype_times"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_times">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3530" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: An object of timing data including cycle, elapsed, period, start, and stop.</p>
+<hr>
+</div>
+<div>
+<h3><a id="times_cycle"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span>.<span class="me1">cycle</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#times_cycle">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3538" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The time taken to complete the last cycle <em>(secs)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="times_elapsed"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span>.<span class="me1">elapsed</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#times_elapsed">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3546" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The time taken to complete the benchmark <em>(secs)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="times_period"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span>.<span class="me1">period</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#times_period">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3554" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The time taken to execute the test once <em>(secs)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="times_timeStamp"></a><code>Benchmark.<span class="me1">prototype</span>.<span class="me1">times</span>.<span class="me1">timeStamp</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#times_timeStamp">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3562" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: A timestamp of when the benchmark started <em>(ms)</em>.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Deferred</span></code></h2>
+<div>
+<h3><a id="Deferred"></a><code>Benchmark.<span class="me1">Deferred</span><span class="br0">(</span>clone<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Deferred">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L445" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>The Deferred constructor.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>clone</code> <em>(Object)</em>: The cloned benchmark instance.</li>
+</ol>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span></code></h2>
+<div>
+<h3><a id="Deferred_prototype_benchmark"></a><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span>.<span class="me1">benchmark</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Deferred_prototype_benchmark">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3606" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: The deferred benchmark instance.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Deferred_prototype_cycles"></a><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span>.<span class="me1">cycles</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Deferred_prototype_cycles">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3614" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The number of deferred cycles performed while benchmarking.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Deferred_prototype_elapsed"></a><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span>.<span class="me1">elapsed</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Deferred_prototype_elapsed">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3622" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The time taken to complete the deferred benchmark <em>(secs)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Deferred_prototype_timeStamp"></a><code>Benchmark.<span class="me1">Deferred</span>.<span class="me1">prototype</span>.<span class="me1">timeStamp</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Deferred_prototype_timeStamp">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3630" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: A timestamp of when the deferred benchmark started <em>(ms)</em>.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Event</span></code></h2>
+<div>
+<h3><a id="Event"></a><code>Benchmark.<span class="me1">Event</span><span class="br0">(</span>type<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Event">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L461" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>The Event constructor.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>type</code> <em>(String|Object)</em>: The event type.</li>
+</ol>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span></code></h2>
+<div>
+<h3><a id="Event_prototype_aborted"></a><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">aborted</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Event_prototype_aborted">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3646" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: A flag to indicate if the emitters listener iteration is aborted.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Event_prototype_cancelled"></a><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">cancelled</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Event_prototype_cancelled">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3654" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: A flag to indicate if the default action is cancelled.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Event_prototype_currentTarget"></a><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">currentTarget</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Event_prototype_currentTarget">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3662" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: The object whose listeners are currently being processed.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Event_prototype_result"></a><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">result</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Event_prototype_result">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3670" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Mixed)</em>: The return value of the last executed listener.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Event_prototype_target"></a><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">target</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Event_prototype_target">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3678" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: The object to which the event was originally emitted.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Event_prototype_timeStamp"></a><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">timeStamp</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Event_prototype_timeStamp">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3686" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: A timestamp of when the event was created <em>(ms)</em>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Event_prototype_type"></a><code>Benchmark.<span class="me1">Event</span>.<span class="me1">prototype</span>.<span class="me1">type</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Event_prototype_type">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3694" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String)</em>: The event type.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Suite</span></code></h2>
+<div>
+<h3><a id="Suite"></a><code>Benchmark.<span class="me1">Suite</span><span class="br0">(</span>name <span class="br0">[</span><span class="sy0">,</span> options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L507" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>The Suite constructor.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>name</code> <em>(String)</em>: A name to identify the suite.</li>
+<li><code><span class="br0">[</span>options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span></code> <em>(Object)</em>: Options object.</li>
+</ol>
+<h4>Example</h4>
+<pre><code><span class="co1">// basic usage (the `new` operator is optional)</span><br><span class="kw2">var</span> suite <span class="sy0">=</span> <span class="kw2">new</span> Benchmark.<span class="me1">Suite</span><span class="sy0">;</span><br><br><span class="co1">// or using a name first</span><br><span class="kw2">var</span> suite <span class="sy0">=</span> <span class="kw2">new</span> Benchmark.<span class="me1">Suite</span><span class="br0">(</span><span class="st0">'foo'</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or with options</span><br><span class="kw2">var</span> suite <span class="sy0">=</span> <span class="kw2">new</span> Benchmark.<span class="me1">Suite</span><span class="br0">(</span><span class="st0">'foo'</span><span class="sy0">,</span> <span class="br0">{</span><br><br>&nbsp; <span class="co1">// called when the suite starts running</span><br>&nbsp; <span class="st0">'onStart'</span><span class="sy0">:</span> onStart<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called between running benchmarks</span><br>&nbsp; <span class="st0">'onCycle'</span><span class="sy0">:</span> onCycle<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called when aborted</span><br>&nbsp; <span class="st0">'onAbort'</span><span class="sy0">:</span> onAbort<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called when a test errors</span><br>&nbsp; <span class="st0">'onError'</span><span class="sy0">:</span> <span class="kw3">onError</span><span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called when reset</span><br>&nbsp; <span class="st0">'onReset'</span><span class="sy0">:</span> onReset<span class="sy0">,</span><br><br>&nbsp; <span class="co1">// called when the suite completes running</span><br>&nbsp; <span class="st0">'onComplete'</span><span class="sy0">:</span> onComplete<br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span></code></h2>
+<div>
+<h3><a id="Suite_prototype_aborted"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">aborted</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_aborted">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3735" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: A flag to indicate if the suite is aborted.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_length"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">length</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_length">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3727" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Number)</em>: The number of benchmarks in the suite.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_running"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">running</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_running">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3743" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Boolean)</em>: A flag to indicate if the suite is running.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_abort"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">abort</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_abort">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1902" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Aborts all benchmarks in the suite.</p>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The suite instance.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_add"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">add</span><span class="br0">(</span>name<span class="sy0">,</span> fn <span class="br0">[</span><span class="sy0">,</span> options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_add">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1962" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Adds a test to the benchmark suite.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>name</code> <em>(String)</em>: A name to identify the benchmark.</li>
+<li><code>fn</code> <em>(Function|String)</em>: The test to benchmark.</li>
+<li><code><span class="br0">[</span>options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span></code> <em>(Object)</em>: Options object.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The benchmark instance.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// basic usage</span><br>suite.<span class="me1">add</span><span class="br0">(</span>fn<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or using a name first</span><br>suite.<span class="me1">add</span><span class="br0">(</span><span class="st0">'foo'</span><span class="sy0">,</span> fn<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or with options</span><br>suite.<span class="me1">add</span><span class="br0">(</span><span class="st0">'foo'</span><span class="sy0">,</span> fn<span class="sy0">,</span> <span class="br0">{</span><br>&nbsp; <span class="st0">'onCycle'</span><span class="sy0">:</span> onCycle<span class="sy0">,</span><br>&nbsp; <span class="st0">'onComplete'</span><span class="sy0">:</span> onComplete<br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or name and options</span><br>suite.<span class="me1">add</span><span class="br0">(</span><span class="st0">'foo'</span><span class="sy0">,</span> <span class="br0">{</span><br>&nbsp; <span class="st0">'fn'</span><span class="sy0">:</span> fn<span class="sy0">,</span><br>&nbsp; <span class="st0">'onCycle'</span><span class="sy0">:</span> onCycle<span class="sy0">,</span><br>&nbsp; <span class="st0">'onComplete'</span><span class="sy0">:</span> onComplete<br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or options only</span><br>suite.<span class="me1">add</span><span class="br0">(</span><span class="br0">{</span><br>&nbsp; <span class="st0">'name'</span><span class="sy0">:</span> <span class="st0">'foo'</span><span class="sy0">,</span><br>&nbsp; <span class="st0">'fn'</span><span class="sy0">:</span> fn<span class="sy0">,</span><br>&nbsp; <span class="st0">'onCycle'</span><span class="sy0">:</span> onCycle<span class="sy0">,</span><br>&nbsp; <span class="st0">'onComplete'</span><span class="sy0">:</span> onComplete<br><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_clone"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">clone</span><span class="br0">(</span>options<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_clone">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L1981" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Creates a new suite with cloned benchmarks.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>options</code> <em>(Object)</em>: Options object to overwrite cloned options.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The new suite instance.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_emit"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">emit</span><span class="br0">(</span>type<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_emit">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2095" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Executes all registered listeners of the specified event type.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>type</code> <em>(String|Object)</em>: The event type or object.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Mixed)</em>: Returns the return value of the last listener executed.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_filter"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">filter</span><span class="br0">(</span>callback<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_filter">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2004" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An <code>Array#<span class="me1">filter</span></code> like method.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>callback</code> <em>(Function|String)</em>: The function/alias called per iteration.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: A new suite of benchmarks that passed callback filter.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_forEach"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">forEach</span><span class="br0">(</span>callback<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_forEach">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3753" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An <code>Array#<span class="me1">forEach</span></code> like method. Callbacks may terminate the loop by explicitly returning <code><span class="kw2">false</span></code>.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>callback</code> <em>(Function)</em>: The function called per iteration.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The suite iterated over.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_indexOf"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">indexOf</span><span class="br0">(</span>value<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_indexOf">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3762" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An <code>Array#<span class="me1">indexOf</span></code> like method.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>value</code> <em>(Mixed)</em>: The value to search for.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Number)</em>: The index of the matched value or <code><span class="sy0">-</span><span class="nu0">1</span></code>.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_invoke"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">invoke</span><span class="br0">(</span>name <span class="br0">[</span><span class="sy0">,</span> arg1<span class="sy0">,</span> arg2<span class="sy0">,</span> …<span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_invoke">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3772" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Invokes a method on all benchmarks in the suite.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>name</code> <em>(String|Object)</em>: The name of the method to invoke OR options object.</li>
+<li><code><span class="br0">[</span>arg1<span class="sy0">,</span> arg2<span class="sy0">,</span> …<span class="br0">]</span></code> <em>(Mixed)</em>: Arguments to invoke the method with.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: A new array of values returned from each method invoked.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_join"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">join</span><span class="br0">(</span><span class="br0">[</span>separator<span class="sy0">=</span><span class="st0">','</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_join">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3781" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Converts the suite of benchmarks to a string.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code><span class="br0">[</span>separator<span class="sy0">=</span><span class="st0">','</span><span class="br0">]</span></code> <em>(String)</em>: A string to separate each element of the array.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(String)</em>: The string.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_listeners"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">listeners</span><span class="br0">(</span>type<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_listeners">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2125" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Returns an array of event listeners for a given type that can be manipulated to add or remove listeners.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>type</code> <em>(String)</em>: The event type.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: The listeners array.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_map"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">map</span><span class="br0">(</span>callback<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_map">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3790" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An <code>Array#<span class="me1">map</span></code> like method.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>callback</code> <em>(Function)</em>: The function called per iteration.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: A new array of values returned by the callback.</p>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_off"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">off</span><span class="br0">(</span><span class="br0">[</span>type<span class="sy0">,</span> listener<span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_off">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2158" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Unregisters a listener for the specified event type(s), or unregisters all listeners for the specified event type(s), or unregisters all listeners for all event types.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code><span class="br0">[</span>type<span class="br0">]</span></code> <em>(String)</em>: The event type.</li>
+<li><code><span class="br0">[</span>listener<span class="br0">]</span></code> <em>(Function)</em>: The function to unregister.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The benchmark instance.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// unregister a listener for an event type</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="st0">'cycle'</span><span class="sy0">,</span> listener<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// unregister a listener for multiple event types</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="st0">'start cycle'</span><span class="sy0">,</span> listener<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// unregister all listeners for an event type</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="st0">'cycle'</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// unregister all listeners for multiple event types</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="st0">'start cycle complete'</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// unregister all listeners for all event types</span><br>bench.<span class="me1">off</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="prototype_on"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">on</span><span class="br0">(</span>type<span class="sy0">,</span> listener<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#prototype_on">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2197" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Registers a listener for the specified event type(s).</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>type</code> <em>(String)</em>: The event type.</li>
+<li><code>listener</code> <em>(Function)</em>: The function to register.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The benchmark instance.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// register a listener for an event type</span><br>bench.<span class="me1">on</span><span class="br0">(</span><span class="st0">'cycle'</span><span class="sy0">,</span> listener<span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// register a listener for multiple event types</span><br>bench.<span class="me1">on</span><span class="br0">(</span><span class="st0">'start cycle'</span><span class="sy0">,</span> listener<span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_pluck"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">pluck</span><span class="br0">(</span>property<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_pluck">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3799" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Retrieves the value of a specified property from all benchmarks in the suite.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>property</code> <em>(String)</em>: The property to pluck.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: A new array of property values.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_pop"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">pop</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_pop">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3807" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Removes the last benchmark from the suite and returns it.</p>
+<h4>Returns</h4>
+<p><em>(Mixed)</em>: The removed benchmark.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_push"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">push</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_push">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3815" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Appends benchmarks to the suite.</p>
+<h4>Returns</h4>
+<p><em>(Number)</em>: The suite’s new length.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_reduce"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">reduce</span><span class="br0">(</span>callback<span class="sy0">,</span> accumulator<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_reduce">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3834" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>An <code>Array#<span class="me1">reduce</span></code> like method.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>callback</code> <em>(Function)</em>: The function called per iteration.</li>
+<li><code>accumulator</code> <em>(Mixed)</em>: Initial value of the accumulator.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Mixed)</em>: The accumulator.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_reset"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">reset</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_reset">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2019" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Resets all benchmarks in the suite.</p>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The suite instance.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_reverse"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">reverse</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_reverse">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L638" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Rearrange the host array’s elements in reverse order.</p>
+<h4>Returns</h4>
+<p><em>(Array)</em>: The reversed array.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_run"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">run</span><span class="br0">(</span><span class="br0">[</span>options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_run">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L2056" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Runs the suite.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code><span class="br0">[</span>options<span class="sy0">=</span><span class="br0">{</span><span class="br0">}</span><span class="br0">]</span></code> <em>(Object)</em>: Options object.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The suite instance.</p>
+<h4>Example</h4>
+<pre><code><span class="co1">// basic usage</span><br>suite.<span class="me1">run</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br><br><span class="co1">// or with options</span><br>suite.<span class="me1">run</span><span class="br0">(</span><span class="br0">{</span> <span class="st0">'async'</span><span class="sy0">:</span> <span class="kw2">true</span><span class="sy0">,</span> <span class="st0">'queued'</span><span class="sy0">:</span> <span class="kw2">true</span> <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></code></pre>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_shift"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">shift</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_shift">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L671" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Removes the first element of the host array and returns it.</p>
+<h4>Returns</h4>
+<p><em>(Mixed)</em>: The first element of the array.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_slice"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">slice</span><span class="br0">(</span>start<span class="sy0">,</span> end<span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_slice">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L684" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Creates an array of the host array’s elements from the start index up to, but not including, the end index.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>start</code> <em>(Number)</em>: The starting index.</li>
+<li><code>end</code> <em>(Number)</em>: The end index.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: The new array.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_sort"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">sort</span><span class="br0">(</span><span class="br0">[</span>compareFn<span class="sy0">=</span><span class="kw2">null</span><span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_sort">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3824" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Sorts the benchmarks of the suite.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code><span class="br0">[</span>compareFn<span class="sy0">=</span><span class="kw2">null</span><span class="br0">]</span></code> <em>(Function)</em>: A function that defines the sort order.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Object)</em>: The sorted suite.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_splice"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">splice</span><span class="br0">(</span>start<span class="sy0">,</span> deleteCount <span class="br0">[</span><span class="sy0">,</span> val1<span class="sy0">,</span> val2<span class="sy0">,</span> …<span class="br0">]</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_splice">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L714" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Allows removing a range of elements and/or inserting elements into the host array.</p>
+<h4>Arguments</h4>
+<ol>
+<li><code>start</code> <em>(Number)</em>: The start index.</li>
+<li><code>deleteCount</code> <em>(Number)</em>: The number of elements to delete.</li>
+<li><code><span class="br0">[</span>val1<span class="sy0">,</span> val2<span class="sy0">,</span> …<span class="br0">]</span></code> <em>(Mixed)</em>: values to insert at the <code>start</code> index.</li>
+</ol>
+<h4>Returns</h4>
+<p><em>(Array)</em>: An array of removed elements.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_prototype_unshift"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">prototype</span>.<span class="me1">unshift</span><span class="br0">(</span><span class="br0">)</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_prototype_unshift">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L749" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p>Appends arguments to the host array.</p>
+<h4>Returns</h4>
+<p><em>(Number)</em>: The new length.</p>
+<hr>
+</div>
+</div>
+<div>
+<h2><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">options</span></code></h2>
+<div>
+<h3><a id="Suite_options"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">options</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_options">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3706" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(Object)</em>: The default options copied by suite instances.</p>
+<hr>
+</div>
+<div>
+<h3><a id="Suite_options_name"></a><code>Benchmark.<span class="me1">Suite</span>.<span class="me1">options</span>.<span class="me1">name</span></code></h3>
+<p><a href="http://benchmarkjs.com/docs#Suite_options_name">#</a> <a href="https://github.com/bestiejs/benchmark.js/blob/v1.0.0/benchmark.js#L3714" title="View in source">Ⓢ</a> <a href="http://benchmarkjs.com/docs#toc" title="Jump back to the TOC.">Ⓣ</a></p>
+<p><em>(String)</em>: The name of the suite.</p>
+<hr>
+</div>
+</div>
+</div>
+  <a href="https://github.com/bestiejs/benchmark.js" class="github"><img src="./Benchmark_files/github.png" alt="Fork me on GitHub"></a>
+  <footer>Benchmark.js by <a href="http://mathiasbynens.be/">Mathias Bynens</a> and <a href="http://allyoucanleet.com/">John-David Dalton</a><br>Twitter: <a href="http://twitter.com/benchmarkjs" rel="nofollow">@benchmarkjs</a></footer>
+  <script src="./Benchmark_files/ga.js"></script><script>window._gaq=[['_setAccount','UA-6065217-50'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+ 
+</body></html>

@@ -5,6 +5,7 @@
     <link href="Styles/style.css" rel="stylesheet" />
     <link href="Styles/bootstrap/bootstrap.css" rel="stylesheet" />
     <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/benchmark.js"></script>
     <script src="Scripts/common.js"></script>
     <script src="Scripts/graphics.js"></script>
     <script src="Scripts/lsystem.js"></script>
@@ -14,6 +15,10 @@
         var expr;
 
         $(function () {
+
+            showInfo("a");
+            showInfo("b");
+            showInfo("c");
 
             // 初始化
             init();
@@ -52,8 +57,12 @@
             cxt.closePath();
         }
 
-        function render() {            
+        function render_bm() {
+            var benchmark = new Benchmark('LSystem::render', render);          
+            benchmark.run();
+        }
 
+        function render() {            
             var cxt = canvas.getContext('2d');
             if ($('#chkDrawGrid')[0].checked) {              
                 // 绘制网格
@@ -88,6 +97,13 @@
                 step: step,
                 deltaAngle: deltaAngle
             });
+        }
+
+        function showInfo(str, type) {          
+            var d = new Date();
+            var msg = d.toLocaleString() + ' ' + str;
+            var span = $('<span>' + msg + '</span><br>');
+            $('#output').prepend(span);
         }
 
     </script>
@@ -195,12 +211,14 @@
             <tfoot>
                 <tr>
                     <td colspan="2">
-                        <input type="button" value="Render" onclick="render();" />
+                        <input type="button" value="Render" onclick="render_bm();" />
                         <input type="button" value="Single Step" />
                     </td>
                 </tr>
             </tfoot>
         </table>
+    </div>
+    <div id="output" class="bm_container with_red_board">
     </div>
 </body>
 </html>
