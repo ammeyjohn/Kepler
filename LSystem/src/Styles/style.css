@@ -1,75 +1,84 @@
-﻿.with_board{
-    border: solid 1px black;
+﻿/*DEBUG*/
+.with_board {
+    border-style: solid;
+    border-width: 1px;
 }
 
-.with_red_board {
-    border: solid 1px red;
+.red-board {
+    border-color: red;
 }
 
-.with_green_board {
-    border: solid 1px green;
+.blue-board {
+    border-color: blue;
 }
 
-.with_blue_board {
-    border: solid 1px blue;
+.green-board {
+    border-color: green;
 }
 
-.canvas_container {
-    position: absolute;
-    top: 10px;
-    left: 10px;    
-}
-
-.canvas {    
+/*COMPONENTS STYLE*/
+.drawPane {    
     border: solid 1px gray;
 }
 
-.expr_editor_container {
-    position: absolute;
-    top: 0px;
+.drawPane_container {
+    position: relative;
+    top: 10px;
     left: 10px;
 }
 
-.expr_editor {    
+.expression {    
+    width: 100%;
+    height: 100%;
+}
+
+.expr_container {
+    position: relative;
+    top: 15px;
+    left: 10px;
+    width: 497px;
     height: 100px;    
 }
 
-.option_table_container {
-    position: absolute;
-    top: 10px;
-    left: 520px;
+.prop_container {
+    position: relative;
+    top: -597px;
+    left: 525px;
+    width: 300px;
+    height: 615px;
 }
 
-.option_table {
-    border: solid 1px gray;    
+.prop_table {
+    border: solid 1px black;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
-.option_table_cell_title {
-    width: 80px;
-    border: solid 1px gray;    
+.prop_head {
+    font-weight: bold;
 }
 
-.option_table_cell_value {
+.prop_cell {
+    border: solid 1px black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.prop_name{
+    width: 100px;
+}
+
+.prop_value{
     width: 200px;
-    border: solid 1px gray;    
+    height: 30px;
 }
 
-.option_text {
+.prop_input {
     width: 100%;
 }
 
-.option_rule_left {
-    width: 30px;
-}
-
-.option_rule {
-    width: 70%;
-}
-
-.bm_container {
-    position: absolute;
-    top: 10px;
-    left: 810px;
-    width: 500px;
-    height: 300px;
+.prop_rules {
+    width: 100%;
+    height: 100px;
+    text-align: left;
 }

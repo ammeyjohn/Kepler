@@ -58,16 +58,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bootstrap.html" />
+    <Content Include="code_backup.txt" />
     <Content Include="index.html" />
-    <Content Include="Scripts\benchmark.js" />
+    <Content Include="Scripts\benchmark\benchmark.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\graphics.js" />
     <Content Include="packages.config" />
-    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <None Include="Scripts\jquery\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery\jquery-2.0.3.min.js" />
     <Content Include="Scripts\lsystem.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Styles\bootstrap\bootstrap.css" />
@@ -79,7 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Scripts\jquery\jquery-2.0.3.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

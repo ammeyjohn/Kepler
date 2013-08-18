@@ -2,45 +2,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
-    <link href="Styles/style.css" rel="stylesheet" />
     <link href="Styles/bootstrap/bootstrap.css" rel="stylesheet" />
-    <script src="Scripts/jquery-2.0.3.js"></script>
-    <script src="Scripts/benchmark.js"></script>
+    <link href="Styles/style.css" rel="stylesheet" />
+    <script src="Scripts/jquery/jquery-2.0.3.js"></script>
+    <script src="Scripts/benchmark/benchmark.js"></script>
     <script src="Scripts/common.js"></script>
     <script src="Scripts/graphics.js"></script>
     <script src="Scripts/lsystem.js"></script>
     <script type="text/javascript">
 
-        var canvas;
+        var drawPane;
         var expr;
 
         $(function () {
-
-            showInfo("a");
-            showInfo("b");
-            showInfo("c");
-
             // 初始化
-            init();
+            drawPane = $('#drawPane')[0];
         });
 
-        function init() {
-            canvas = $('#drawCanvas')[0];
+        function addRule() {
+            var ruleLeft = $('#prop_rule_left');
+            var rule = $('#prop_rule');
 
-            var expr_editor_container = $('#expr_editor_container');
-            expr_editor_container.css('top', canvas.height + 15);
+            var span = $('<span>');
+            span.append(ruleLeft.val() + '->' + rule.val());
 
-            var expr_editor = $('#exprEditor');
-            expr_editor.css('width', canvas.width);
+            $('#prop_rules').append(span);
+            $('#prop_rules').append('<br>');
 
-            $('#txtOrgX').val(canvas.width / 2);
-            $('#txtOrgY').val(canvas.height - 50);
+            ruleLeft.val('');
+            rule.val('');
+        }
+
+        function removeRule() {
         }
 
         function drawGrid(cxt, step) {
-            var cw = canvas.width;
-            var ch = canvas.height;
-            
+            var cw = drawPane.width;
+            var ch = drawPane.height;
+
             cxt.strokeStyle = 'gray';
 
             cxt.beginPath();
@@ -57,14 +56,9 @@
             cxt.closePath();
         }
 
-        function render_bm() {
-            var benchmark = new Benchmark('LSystem::render', render);          
-            benchmark.run();
-        }
-
-        function render() {            
-            var cxt = canvas.getContext('2d');
-            if ($('#chkDrawGrid')[0].checked) {              
+        function render() {
+            var cxt = drawPane.getContext('2d');
+            if ($('#chkDrawGrid')[0].checked) {
                 // 绘制网格
                 var step = parseInt($('#txtStep').val());
                 drawGrid(cxt, step);
@@ -73,10 +67,10 @@
             var depth = parseInt($('#txtDepth').val());
             var axiom = $('#txtAxiom').val();
             var rules = {};
-            for(var i = 1; i < 5; i++) {
-                var rule0 = $('#txtRuleLeft' + i).val();               
+            for (var i = 1; i < 5; i++) {
+                var rule0 = $('#txtRuleLeft' + i).val();
                 var rule = $('#txtRule' + i).val();
-                if(rule0 == "") continue; 
+                if (rule0 == "") continue;
                 rules[rule0] = rule;
             }
 
@@ -90,7 +84,7 @@
             var orgX = parseInt($('#txtOrgX').val());
             var orgY = parseInt($('#txtOrgY').val());
 
-            var g = new Graphics(canvas, true);
+            var g = new Graphics(drawPane, true);
             ls.render(g, expr, {
                 origin: { x: orgX, y: orgY },
                 angle: angle,
@@ -99,126 +93,89 @@
             });
         }
 
-        function showInfo(str, type) {          
-            var d = new Date();
-            var msg = d.toLocaleString() + ' ' + str;
-            var span = $('<span>' + msg + '</span><br>');
-            $('#output').prepend(span);
-        }
-
     </script>
 </head>
 <body>
-    <div class="canvas_container">
-        <canvas id="drawCanvas" width="500" height="500" class="canvas"></canvas>
+    <div class="drawPane_container">
+        <canvas id="drawPane" width="500" height="500" class="drawPane"></canvas>
     </div>
-    <div id="expr_editor_container" class="expr_editor_container">
-        <textarea id="exprEditor" class="expr_editor"></textarea>
+    <div class="expr_container">
+        <textarea id="expression" class="expression"></textarea>
     </div>
-    <div id="option_container" class="option_table_container">
-        <table class="table option_table">
+    <div class="prop_container">
+        <table class="table prop_table">
             <thead>
                 <tr>
-                    <td class="option_table_cell_title">Options</td>
-                    <td class="option_table_cell_value">Values</td>
+                    <td class="prop_cell prop_head prop_name">属性</td>
+                    <td class="prop_cell prop_head prop_value">属性值</td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="option_table_cell_title">Step</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtStep" class="option_text" value="5" />
+                    <td class="prop_cell">Origin X</td>
+                    <td class="prop_cell">
+                        <input id="prop_org_x" type="number" class="prop_input" value="250" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="option_table_cell_title">Angle</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtAngle" class="option_text" value="90" />
+                    <td class="prop_cell">Origin Y</td>
+                    <td class="prop_cell">
+                        <input id="prop_org_y" type="number" class="prop_input" value="250" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="option_table_cell_title">DeltaAngle</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtDeltaAngle" class="option_text" value="20" />
+                    <td class="prop_cell">Angle</td>
+                    <td class="prop_cell">
+                        <input id="prop_angle" type="number" class="prop_input" value="90" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="option_table_cell_title">Depth</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtDepth" class="option_text" value="10" />
+                    <td class="prop_cell">Delta Angle</td>
+                    <td class="prop_cell">
+                        <input id="prop_delta_angle" type="number" class="prop_input" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="option_table_cell_title">Axiom</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtAxiom" class="option_text" value="" />
+                    <td class="prop_cell">Delta Length</td>
+                    <td class="prop_cell">
+                        <input id="prop_delta_length" type="number" class="prop_input" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="option_table_cell_title">Rule 1</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtRuleLeft1" class="option_rule_left" value="" />
-                        <span>-></span>
-                        <input type="text" id="txtRule1" class="option_rule" value="" />
+                    <td class="prop_cell">Axiom</td>
+                    <td class="prop_cell">
+                        <input id="prop_axiom" type="text" class="prop_input" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="option_table_cell_title">Rule 2</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtRuleLeft2" class="option_rule_left" value="" />
-                        <span>-></span>
-                        <input type="text" id="txtRule2" class="option_rule" value="" />
+                    <td class="prop_cell">Rules</td>
+                    <td class="prop_cell">
+                        <div id="prop_rules" class="prop_rules">
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td class="option_table_cell_title">Rule 3</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtRuleLeft3" class="option_rule_left" value="" />
-                        <span>-></span>
-                        <input type="text" id="txtRule3" class="option_rule" value="" />
+                    <td colspan="2">
+                        <input id="prop_rule_left" style="width: 40px;"/>
+                        ->
+                        <input id="prop_rule" style="width: 75%;"/>
                     </td>
                 </tr>
                 <tr>
-                    <td class="option_table_cell_title">Rule 4</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtRuleLeft4" class="option_rule_left" value="" />
-                        <span>-></span>
-                        <input type="text" id="txtRule4" class="option_rule" value="" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="option_table_cell_title">Rule 5</td>
-                    <td class="option_table_cell_value">
-                        <input type="text" id="txtRuleLeft5" class="option_rule_left" value="" />
-                        <span>-></span>
-                        <input type="text" id="txtRule5" class="option_rule" value="" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="option_table_cell_title">Origin</td>
-                    <td class="option_table_cell_value">
-                        X=<input type="text" id="txtOrgX" class="option_text" style="width:85%;" />
-                        Y=<input type="text" id="txtOrgY" class="option_text" style="width:85%;"/>
-                    </td>
-                </tr>                
-                <tr>
-                    <td class="option_table_cell_title">Show Grid</td>
-                    <td class="option_table_cell_value">
-                        <input type="checkbox" id="chkDrawGrid" /> Show grid on canvas
+                    <td colspan="2" style="text-align: right;">
+                        <input type="button" value="Add" onclick="addRule();"/>
+                        <input type="button" value="Remove" onclick="removeRule();"/>
                     </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2">
-                        <input type="button" value="Render" onclick="render_bm();" />
-                        <input type="button" value="Single Step" />
+                    <td colspan="2" class="prop_cell">
+                        <input type="button" value="render" />
                     </td>
                 </tr>
             </tfoot>
         </table>
-    </div>
-    <div id="output" class="bm_container with_red_board">
     </div>
 </body>
 </html>
