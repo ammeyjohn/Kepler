@@ -19,23 +19,6 @@
             drawPane = $('#drawPane')[0];
         });
 
-        function addRule() {
-            var ruleLeft = $('#prop_rule_left');
-            var rule = $('#prop_rule');
-
-            var span = $('<span>');
-            span.append(ruleLeft.val() + '->' + rule.val());
-
-            $('#prop_rules').append(span);
-            $('#prop_rules').append('<br>');
-
-            ruleLeft.val('');
-            rule.val('');
-        }
-
-        function removeRule() {
-        }
-
         function drawGrid(cxt, step) {
             var cw = drawPane.width;
             var ch = drawPane.height;
@@ -56,41 +39,42 @@
             cxt.closePath();
         }
 
-        function render() {
-            var cxt = drawPane.getContext('2d');
-            if ($('#chkDrawGrid')[0].checked) {
-                // 绘制网格
-                var step = parseInt($('#txtStep').val());
-                drawGrid(cxt, step);
+        function getOption() {
+            var opt = {};
+            opt.origin = {};
+            opt.origin.x = parseInt($('#prop_org_x').val());
+            opt.origin.y = parseInt($('#prop_org_y').val());
+            opt.angle = parseFloat($('#prop_angle').val());
+            opt.deltaAngle = parseFloat($('#prop_delta_angle').val());
+            opt.deltaLength= parseFloat($('#prop_delta_length').val());
+            opt.depth= parseInt($('#prop_depth').val());
+            opt.axiom= $('#prop_axiom').val();
+            opt.rules = {};
+            for (var i = 0; i < 5; i++) {
+                var ruleLeft = $('#prop_rule_left_' + i).val();
+                var rule = $('#prop_rule_' + i).val();
+                if (ruleLeft && rule) {
+                    opt.rules[ruleLeft] = rule;
+                }
             }
+            return opt;
+        }
 
-            var depth = parseInt($('#txtDepth').val());
-            var axiom = $('#txtAxiom').val();
-            var rules = {};
-            for (var i = 1; i < 5; i++) {
-                var rule0 = $('#txtRuleLeft' + i).val();
-                var rule = $('#txtRule' + i).val();
-                if (rule0 == "") continue;
-                rules[rule0] = rule;
-            }
+        function render() {
+            var opt = getOption();
+
+            var cxt = drawPane.getContext('2d');
+            // 绘制网格
+            var step = opt.deltaLength;
+            if (step < 5) step = 5;
+            drawGrid(cxt, step);
 
             var ls = new LSystem();
-            var expr = ls.generate(axiom, rules, depth);
-            $('#exprEditor').val(expr);
-
-            var angle = parseFloat($('#txtAngle').val())
-            var deltaAngle = parseFloat($('#txtDeltaAngle').val());
-            var step = parseFloat($('#txtStep').val());
-            var orgX = parseInt($('#txtOrgX').val());
-            var orgY = parseInt($('#txtOrgY').val());
+            var expr = ls.generate(opt.axiom, opt.rules, opt.depth);
+            $('#expression').val(expr);
 
             var g = new Graphics(drawPane, true);
-            ls.render(g, expr, {
-                origin: { x: orgX, y: orgY },
-                angle: angle,
-                step: step,
-                deltaAngle: deltaAngle
-            });
+            ls.render(g, expr, opt);
         }
 
     </script>
@@ -106,7 +90,7 @@
         <table class="table prop_table">
             <thead>
                 <tr>
-                    <td class="prop_cell prop_head prop_name">属性</td>
+                    <td class="prop_cell prop_head prop_name">名称</td>
                     <td class="prop_cell prop_head prop_value">属性值</td>
                 </tr>
             </thead>
@@ -142,36 +126,62 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="prop_cell">Depth</td>
+                    <td class="prop_cell">
+                        <input id="prop_depth" type="number" class="prop_input" value="5"/>
+                    </td>
+                </tr>
+                <tr>
                     <td class="prop_cell">Axiom</td>
                     <td class="prop_cell">
                         <input id="prop_axiom" type="text" class="prop_input" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="prop_cell">Rules</td>
+                    <td class="prop_cell">Rule 1</td>
                     <td class="prop_cell">
-                        <div id="prop_rules" class="prop_rules">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input id="prop_rule_left" style="width: 40px;"/>
+                        <input id="prop_rule_left_1" type="text" style="width: 35px;" />
                         ->
-                        <input id="prop_rule" style="width: 75%;"/>
+                        <input id="prop_rule_1" type="text" style="width: 125px;" />
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: right;">
-                        <input type="button" value="Add" onclick="addRule();"/>
-                        <input type="button" value="Remove" onclick="removeRule();"/>
+                    <td class="prop_cell">Rule 2</td>
+                    <td class="prop_cell">
+                        <input id="prop_rule_left_2" type="text" style="width: 35px;" />
+                        ->
+                        <input id="prop_rule_2" type="text" style="width: 125px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="prop_cell">Rule 3</td>
+                    <td class="prop_cell">
+                        <input id="prop_rule_left_3" type="text" style="width: 35px;" />
+                        ->
+                        <input id="prop_rule_3" type="text" style="width: 125px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="prop_cell">Rule 4</td>
+                    <td class="prop_cell">
+                        <input id="prop_rule_left_4" type="text" style="width: 35px;" />
+                        ->
+                        <input id="prop_rule_4" type="text" style="width: 125px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="prop_cell">Rule 5</td>
+                    <td class="prop_cell">
+                        <input id="prop_rule_left_5" type="text" style="width: 35px;" />
+                        ->
+                        <input id="prop_rule_5" type="text" style="width: 125px;" />
                     </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="2" class="prop_cell">
-                        <input type="button" value="render" />
+                        <input type="button" value="render" onclick="render();"/>
                     </td>
                 </tr>
             </tfoot>

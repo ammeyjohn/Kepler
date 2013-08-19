@@ -1,0 +1,101 @@
+﻿<!--        <table class="table option_table">
+            <thead>
+                <tr>
+                    <td class="option_table_cell_title">Options</td>
+                    <td class="option_table_cell_value">Values</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="option_table_cell_title">Step</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtStep" class="option_text" value="5" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Angle</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtAngle" class="option_text" value="90" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">DeltaAngle</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtDeltaAngle" class="option_text" value="20" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Depth</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtDepth" class="option_text" value="10" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Axiom</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtAxiom" class="option_text" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 1</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRuleLeft1" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule1" class="option_rule" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 2</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRuleLeft2" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule2" class="option_rule" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 3</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRuleLeft3" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule3" class="option_rule" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 4</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRuleLeft4" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule4" class="option_rule" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Rule 5</td>
+                    <td class="option_table_cell_value">
+                        <input type="text" id="txtRuleLeft5" class="option_rule_left" value="" />
+                        <span>-></span>
+                        <input type="text" id="txtRule5" class="option_rule" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="option_table_cell_title">Origin</td>
+                    <td class="option_table_cell_value">
+                        X=<input type="text" id="txtOrgX" class="option_text" style="width:85%;" />
+                        Y=<input type="text" id="txtOrgY" class="option_text" style="width:85%;"/>
+                    </td>
+                </tr>                
+                <tr>
+                    <td class="option_table_cell_title">Show Grid</td>
+                    <td class="option_table_cell_value">
+                        <input type="checkbox" id="chkDrawGrid" /> Show grid on drawPane
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="Render" onclick="render_bm();" />
+                        <input type="button" value="Single Step" />
+                    </td>
+                </tr>
+            </tfoot>-->
+<!--        </table>-->

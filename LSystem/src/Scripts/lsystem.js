@@ -44,7 +44,7 @@ LSystem.prototype.render = function (g, expr, param) {
                 var obj = {
                     pt1: { x: 0, y: 0 },
                     pt2: {
-                        x: param.step,
+                        x: param.deltaLength,
                         y: 0
                     },
                     style: 'green'
