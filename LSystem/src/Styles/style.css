@@ -76,3 +76,9 @@
 .prop_input {
     width: 100%;
 }
+
+.demo_container {
+    position: absolute;
+    top: 10px;
+    left: 835px;
+}

@@ -11,33 +11,12 @@
     <script src="Scripts/lsystem.js"></script>
     <script type="text/javascript">
 
-        var drawPane;
-        var expr;
+        var drawPane;        
 
         $(function () {
             // 初始化
             drawPane = $('#drawPane')[0];
         });
-
-        function drawGrid(cxt, step) {
-            var cw = drawPane.width;
-            var ch = drawPane.height;
-
-            cxt.strokeStyle = 'gray';
-
-            cxt.beginPath();
-            for (var x = 0; x < cw; x += step) {
-                for (var y = 0; y < ch; y += step) {
-                    cxt.moveTo(0, y);
-                    cxt.lineTo(cw, y);
-
-                    cxt.moveTo(x, 0);
-                    cxt.lineTo(x, ch);
-                }
-            }
-            cxt.stroke();
-            cxt.closePath();
-        }
 
         function getOption() {
             var opt = {};
@@ -46,9 +25,10 @@
             opt.origin.y = parseInt($('#prop_org_y').val());
             opt.angle = parseFloat($('#prop_angle').val());
             opt.deltaAngle = parseFloat($('#prop_delta_angle').val());
-            opt.deltaLength= parseFloat($('#prop_delta_length').val());
-            opt.depth= parseInt($('#prop_depth').val());
-            opt.axiom= $('#prop_axiom').val();
+            opt.deltaLength = parseFloat($('#prop_delta_length').val());
+            opt.depth = parseInt($('#prop_depth').val());
+            opt.axiom = $('#prop_axiom').val();
+            opt.drawGrid = $('#prop_draw_grid').is(':checked');
             opt.rules = {};
             for (var i = 0; i < 5; i++) {
                 var ruleLeft = $('#prop_rule_left_' + i).val();
@@ -63,18 +43,18 @@
         function render() {
             var opt = getOption();
 
-            var cxt = drawPane.getContext('2d');
-            // 绘制网格
-            var step = opt.deltaLength;
-            if (step < 5) step = 5;
-            drawGrid(cxt, step);
-
             var ls = new LSystem();
             var expr = ls.generate(opt.axiom, opt.rules, opt.depth);
             $('#expression').val(expr);
 
             var g = new Graphics(drawPane, true);
             ls.render(g, expr, opt);
+        }
+
+        function save() {
+            var name = window.prompt("Please enter the name of demo", "demo");
+            var g = new Graphics(drawPane, false);
+            g.saveImage(name + ".png", 100, 100);
         }
 
     </script>
@@ -104,7 +84,7 @@
                 <tr>
                     <td class="prop_cell">Origin Y</td>
                     <td class="prop_cell">
-                        <input id="prop_org_y" type="number" class="prop_input" value="250" />
+                        <input id="prop_org_y" type="number" class="prop_input" value="450" />
                     </td>
                 </tr>
                 <tr>
@@ -128,7 +108,7 @@
                 <tr>
                     <td class="prop_cell">Depth</td>
                     <td class="prop_cell">
-                        <input id="prop_depth" type="number" class="prop_input" value="5"/>
+                        <input id="prop_depth" type="number" class="prop_input" value="5" />
                     </td>
                 </tr>
                 <tr>
@@ -177,14 +157,38 @@
                         <input id="prop_rule_5" type="text" style="width: 125px;" />
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="2" class="prop_cell" style="text-align: left;">
+                        <input id="prop_draw_grid" type="checkbox" /> Is Show Grid?
+                    </td>
+                </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="2" class="prop_cell">
-                        <input type="button" value="render" onclick="render();"/>
+                        <input type="button" value="render" onclick="render();" />
+                        <input type="button" value="save" onclick="save();" />
                     </td>
                 </tr>
             </tfoot>
+        </table>
+    </div>
+    <div class="demo_container with_board red-board">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="prop_cell">
+                        <a href="#">
+                            <img src="Images/a.png" />
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="prop_cell">
+                        <span>ABCDEFGHG</span>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </body>

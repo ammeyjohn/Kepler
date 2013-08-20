@@ -1,6 +1,31 @@
 ﻿function LSystem() {
 }
 
+LSystem.prototype.drawGrid = function (g, step) {
+    var cw = g.Width();
+    var ch = g.Height();
+
+    var cxt = g.getContext();
+    cxt.strokeStyle = 'gray';
+
+    if (step < 10) {
+        step = 10;
+    }
+
+    cxt.beginPath();
+    for (var x = step; x < cw; x += step) {
+        for (var y = step; y < ch; y += step) {
+            cxt.moveTo(0, y);
+            cxt.lineTo(cw, y);
+
+            cxt.moveTo(x, 0);
+            cxt.lineTo(x, ch);
+        }
+    }
+    cxt.closePath();
+    cxt.stroke();
+}
+
 LSystem.prototype.generate = function (axtom, rules, depth) {
     var temp = axtom, gen = '';
     for (var d = 0; d < depth; d++) {
@@ -20,6 +45,11 @@ LSystem.prototype.generate = function (axtom, rules, depth) {
 }
 
 LSystem.prototype.render = function (g, expr, param) {
+    
+    if (param.drawGrid) {
+        // 绘制网格
+        this.drawGrid(g, param.deltaLength);
+    }
 
     var stack = [];
 

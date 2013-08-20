@@ -16,6 +16,22 @@ Graphics.prototype.getContext = function () {
     return this.Context;
 }
 
+Graphics.prototype.saveImage = function (fileName, width, height) {
+    var url = this.Canvas.toDataURL("image/png");
+    url = url.substring(22);
+    $.post("./Services/CanvasToImage.ashx",
+        {
+            data: url,
+            name: fileName,
+            width: width,
+            height: height
+        },
+        function () {
+            alert("Image has saved.");
+        }
+    );
+}
+
 Graphics.prototype.save = function () {
     var cxt = this.getContext();
     cxt.save();

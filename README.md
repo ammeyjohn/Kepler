@@ -1,4 +1,4 @@
 Kepler
 ======
 
-My ideal project represents the lift forms on the gemini. 
+My ideal project represents the life forms on the gemini. 
