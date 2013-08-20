@@ -5,13 +5,14 @@
     <link href="Styles/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="Styles/style.css" rel="stylesheet" />
     <script src="Scripts/jquery/jquery-2.0.3.js"></script>
+    <script src="Scripts/json2/json2.js"></script>
     <script src="Scripts/benchmark/benchmark.js"></script>
     <script src="Scripts/common.js"></script>
     <script src="Scripts/graphics.js"></script>
     <script src="Scripts/lsystem.js"></script>
     <script type="text/javascript">
 
-        var drawPane;        
+        var drawPane;
 
         $(function () {
             // 初始化
@@ -49,12 +50,23 @@
 
             var g = new Graphics(drawPane, true);
             ls.render(g, expr, opt);
+
+            return opt;
         }
 
         function save() {
+
+            window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+            window.requestFileSystem(window.PERSISTENT, 1024, function (fs) { alert(fs.name); }, function (err) { alert(err); });
+
             var name = window.prompt("Please enter the name of demo", "demo");
             var g = new Graphics(drawPane, false);
-            g.saveImage(name + ".png", 100, 100);
+            var url = drawPane.toDataURL("image/png");
+            $('#img').attr('src', url)
+                     .attr('width', 100)
+                     .attr('height', 100);
+
+            //g.saveImage(name + ".png", 100, 100);
         }
 
     </script>
@@ -159,7 +171,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" class="prop_cell" style="text-align: left;">
-                        <input id="prop_draw_grid" type="checkbox" /> Is Show Grid?
+                        <input id="prop_draw_grid" type="checkbox" />
+                        Is Show Grid?
                     </td>
                 </tr>
             </tbody>
@@ -179,7 +192,7 @@
                 <tr>
                     <td class="prop_cell">
                         <a href="#">
-                            <img src="Images/a.png" />
+                            <img id="img" width="100px" height="100px;" />
                         </a>
                     </td>
                 </tr>

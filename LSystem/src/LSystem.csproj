@@ -69,6 +69,8 @@
     <None Include="Scripts\jquery\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\json2\json2.js" />
+    <Content Include="Scripts\json2\json2.min.js" />
     <Content Include="Scripts\lsystem.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Styles\bootstrap\bootstrap.css" />
@@ -81,10 +83,14 @@
     <Compile Include="Services\CanvasToImage.ashx.cs">
       <DependentUpon>CanvasToImage.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Services\SaveOption.ashx.cs">
+      <DependentUpon>SaveOption.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery\jquery-2.0.3.min.map" />
     <Content Include="Services\CanvasToImage.ashx" />
+    <Content Include="Services\SaveOption.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
