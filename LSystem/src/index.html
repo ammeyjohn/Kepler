@@ -19,54 +19,62 @@
             drawPane = $('#drawPane')[0];
         });
 
-        function getOption() {
-            var opt = {};
-            opt.origin = {};
-            opt.origin.x = parseInt($('#prop_org_x').val());
-            opt.origin.y = parseInt($('#prop_org_y').val());
-            opt.angle = parseFloat($('#prop_angle').val());
-            opt.deltaAngle = parseFloat($('#prop_delta_angle').val());
-            opt.deltaLength = parseFloat($('#prop_delta_length').val());
-            opt.depth = parseInt($('#prop_depth').val());
-            opt.axiom = $('#prop_axiom').val();
-            opt.drawGrid = $('#prop_draw_grid').is(':checked');
-            opt.rules = {};
+        function getProperty() {
+            var prop = {};
+            prop.origin = {};
+            prop.origin.x = parseInt($('#prop_org_x').val());
+            prop.origin.y = parseInt($('#prop_org_y').val());
+            prop.angle = parseFloat($('#prop_angle').val());
+            prop.deltaAngle = parseFloat($('#prop_delta_angle').val());
+            prop.deltaLength = parseFloat($('#prop_delta_length').val());
+            prop.depth = parseInt($('#prop_depth').val());
+            prop.axiom = $('#prop_axiom').val();
+            prop.drawGrid = $('#prop_draw_grid').is(':checked');
+            prop.rules = {};
             for (var i = 0; i < 5; i++) {
                 var ruleLeft = $('#prop_rule_left_' + i).val();
                 var rule = $('#prop_rule_' + i).val();
                 if (ruleLeft && rule) {
-                    opt.rules[ruleLeft] = rule;
+                    prop.rules[ruleLeft] = rule;
                 }
             }
-            return opt;
+            return prop;
         }
 
         function render() {
-            var opt = getOption();
+            var prop = getProperty();
 
             var ls = new LSystem();
-            var expr = ls.generate(opt.axiom, opt.rules, opt.depth);
+            var expr = ls.generate(prop.axiom, prop.rules, prop.depth);
             $('#expression').val(expr);
 
             var g = new Graphics(drawPane, true);
-            ls.render(g, expr, opt);
+            ls.render(g, expr, prop);
 
-            return opt;
+            return prop;
         }
 
         function save() {
+            // 重新绘图
+            var prop = render();
 
-            window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
-            window.requestFileSystem(window.PERSISTENT, 1024, function (fs) { alert(fs.name); }, function (err) { alert(err); });
-
+            // 获取示例名称
             var name = window.prompt("Please enter the name of demo", "demo");
-            var g = new Graphics(drawPane, false);
-            var url = drawPane.toDataURL("image/png");
-            $('#img').attr('src', url)
-                     .attr('width', 100)
-                     .attr('height', 100);
+            var image = drawPane.toDataURL('image/png');
+            prop.name = name;
+            prop.image = {
+                width: 100,
+                height: 100,
+                data: image
+            };
 
-            //g.saveImage(name + ".png", 100, 100);
+
+            var json = JSON.stringify(prop);
+            $.post("./Services/SaveProperty.ashx",
+                { data: json },
+                function () { alert("Success"); },
+                function () { alert('Failed'); }
+            );
         }
 
     </script>
