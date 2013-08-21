@@ -17,6 +17,24 @@
         $(function () {
             // 初始化
             drawPane = $('#drawPane')[0];
+
+            // 尝试加载示例文件
+            $.ajax({
+                url: "./Services/LoadProperty.ashx",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: "",
+                success: function (json) {
+                    alert(json.d);
+                },
+                error: function (x, e) {
+                    alert(x.responseText);
+                },
+                complete: function (x) {
+                    alert(x.responseText);
+                }
+            });
         });
 
         function getProperty() {

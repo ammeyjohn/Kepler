@@ -83,6 +83,9 @@
     <Compile Include="Services\CanvasToImage.ashx.cs">
       <DependentUpon>CanvasToImage.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Services\LoadProperty.ashx.cs">
+      <DependentUpon>LoadProperty.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Services\SaveProperty.ashx.cs">
       <DependentUpon>SaveProperty.ashx</DependentUpon>
     </Compile>
@@ -91,6 +94,7 @@
     <Content Include="Scripts\jquery\jquery-2.0.3.min.map" />
     <Content Include="Services\CanvasToImage.ashx" />
     <Content Include="Services\SaveProperty.ashx" />
+    <Content Include="Services\LoadProperty.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -99,6 +103,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <PropertyGroup>
