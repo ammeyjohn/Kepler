@@ -1,0 +1,396 @@
+﻿function PumpCurve(canvas, args) {
+    (function init(self, canvas, args) {
+
+        // 设置Canvas对象
+        self.Canvas = canvas;
+
+        // 设置Canvas宽度
+        self.Width = canvas.width;
+
+        // 设置Canvas高度
+        self.Height = canvas.height;
+
+        // 创建绘图区域
+        self.DrawPane = new DrawPane(self, args);
+
+        // 设置调试标志，在调试状态下会绘制定位框
+        self.IsDebug = args.Debug;
+    })(this, canvas, args);
+
+    this.setData = function (data) {
+        // 设置水泵数据
+        this.Data = data;
+
+        // 计算泵图各部分位置
+
+    }
+
+    this.Draw = function (data) {
+
+        // 创建绘图句柄
+        var g = new Graphics(this.Canvas, true);
+
+        // 绘制绘图区域和绘图区域内的元素
+        var param = { IsDebug: this.IsDebug };
+        this.DrawPane.Draw(g, data, param);
+    }
+}
+
+function DrawPane(curve, args) {
+    (function init(self, curve, args) {
+
+        // 设置绘图区域容器
+        self.Curve = curve;
+
+        // 计算绘图区域边界
+        self.Bound = new Rectangle();
+        self.Bound.Left = args.Margin.Left;
+        self.Bound.Top = args.Margin.Top;
+        self.Bound.Right = curve.Width - args.Margin.Right;
+        self.Bound.Bottom = curve.Height - args.Margin.Bottom;
+
+        // 创建图例对象
+        if (args.Legend && args.Legend.IsShow) {
+            self.Legend = new Legend(self, args.Legend);
+        }
+
+        // 创建X坐标轴
+        self.AxisX = new TimeAxis(self, args.AxisX);
+
+        // 创建Y坐标轴
+        self.AxisY = new LabelAxis(self, args.AxisY);
+
+        // 创建曲线区域
+        self.CurvePane = new CurvePane(self, args.Curve);
+
+    })(this, curve, args);
+
+    this.Draw = function (g, data, p) {
+
+        if (p.IsDebug) {
+            // 绘制绘图区域边框
+            g.drawRect({
+                pt: {
+                    x: this.Bound.Left,
+                    y: this.Bound.Top
+                },
+                width: this.Bound.Width(),
+                height: this.Bound.Height()
+            });
+        }
+
+        // 计算标签绘图参数
+        var param_axis_y = {
+            pt:{
+                x: this.Bound.Left,
+                y: this.Bound.Top
+            },
+            IsDebug: p.IsDebug
+        };
+
+        // 绘制图例         
+        if (this.Legend) {
+            var param_legend = { IsDebug: p.IsDebug };
+            this.Legend.Draw(g, data, param_legend);
+
+            // 根据图例重新计算标签绘图参数
+            param_axis_y.pt.y = param_legend.Bound.Bottom + 1;
+        }
+
+        // 绘制标签坐标
+        this.AxisY.Draw(g, data, param_axis_y);
+
+        // 绘制时间坐标
+        var param_axis_x = {
+            pt: {
+                x: param_axis_y.Bound.Right,
+                y: param_axis_y.Bound.Bottom
+            },
+            width: this.Bound.Width() - param_axis_y.Bound.Width() - 15,
+            IsDebug: p.IsDebug
+        };
+        this.AxisX.Draw(g, data, param_axis_x);
+    }
+}
+
+function Legend(pane, args) {
+    (function init(self, pane, args) {
+        
+        // 设置绘图区域对象
+        self.DrawPane = pane;
+
+        // 设置图例区域位置
+        self.Location = {
+            x: args.pt.x,
+            y: args.pt.y
+        };
+
+    })(this, pane, args);
+
+    this.Draw = function (g, data, p) {
+        var l = this.Location.x;
+        var t = this.Location.y + 1;
+
+        var offsetX = l + 1;
+        var offsetY = t + 1;
+
+        var image = data.Image;
+
+        // 绘制图例'开'
+        g.drawImage({
+            image: image,
+            spt: { x: 9, y: 0 },
+            dpt: { x: offsetX, y: offsetY },
+            sw: 1,
+            sh: image.height,
+            dw: image.height,
+            dh: image.height
+        });
+        offsetX += image.height;
+        offsetX += 1;
+        g.drawText({ text: '开', pt: { x: offsetX, y: offsetY + 1 } });
+        // 绘制图例'关'
+
+        offsetX += image.height;
+        offsetX += 3;
+        g.drawImage({
+            image: image,
+            spt: { x: 0, y: 0 },
+            dpt: { x: offsetX, y: offsetY },
+            sw: 1,
+            sh: image.height,
+            dw: image.height,
+            dh: image.height
+        });
+        offsetX += image.height;
+        offsetX += 1;
+        g.drawText({ text: '关', pt: { x: offsetX, y: offsetY + 1 } });
+
+
+        // 绘制图例'故障'
+        offsetX += image.height;
+        offsetX += 3;
+        g.drawImage({
+            image: image,
+            spt: { x: 3, y: 0 },
+            dpt: { x: offsetX, y: offsetY },
+            sw: 1,
+            sh: image.height,
+            dw: image.height,
+            dh: image.height
+        });
+        offsetX += image.height;
+        offsetX += 1;
+        g.drawText({ text: '故障', pt: { x: offsetX, y: offsetY + 1 } });
+
+        var metrics = g.measureText({ text: '故障' });
+
+        var bound = new Rectangle();
+        bound.Left = l;
+        bound.Top = t;
+        bound.Right = offsetX + metrics.width;
+        bound.Bottom = t + image.height + 2;
+        p.Bound = bound;
+
+        if (p.IsDebug) {
+            // 绘制图例区域边框
+            g.drawRect({
+                pt: {
+                    x: bound.Left,
+                    y: bound.Top
+                },
+                width: bound.Width(),
+                height: bound.Height()
+            });
+        }
+    }
+}
+
+function CurvePane(pane, args) {
+    (function init(self, pane, args) {
+
+        // 设置绘图区域对象
+        self.DrawPane = pane;
+
+    })(this, pane, args);
+
+    this.Draw = function (g, data, p) {
+
+    }
+}
+
+function LabelAxis(pane, args) {
+    (function init(self, pane, args) {
+
+        // 设置绘图区域对象
+        self.DrawPane = pane;
+
+    })(this, pane, args);
+
+    this.Draw = function (g, data, p) {
+        var offsetX = p.pt.x + 1;
+        var offsetY = p.pt.y + 1;
+        
+        var bound = new Rectangle();
+        bound.Left = offsetX;
+        bound.Top = offsetY;
+        bound.Right = 0;
+        bound.Bottom = 0;
+
+        for (var i = 0; i < data.Pumps.length; i++) {
+            var pump = data.Pumps[i];
+
+            var obj = {
+                text: pump.Name,
+                pt: {
+                    x: offsetX,
+                    y: offsetY
+                },
+                style: pump.Type == 'CSP' ? 'black' : 'blue',
+                font: '宋体',
+                size: 12,
+                bold: false
+            };
+            g.drawText(obj);
+
+            // 测量本次绘制字符串尺寸
+            var metrics = g.measureText(obj);
+            offsetY += (metrics.height < 14 ? 14 : metrics.height);
+            if (metrics.width > bound.Right)
+                bound.Right = metrics.width;
+        }
+
+        bound.Bottom = offsetY;
+        p.Bound = bound;
+
+        // 绘制Y坐标轴
+        g.drawLine({
+            pt1: {
+                x: bound.Right,
+                y: bound.Top
+            },
+            pt2: {
+                x: bound.Right,
+                y: bound.Bottom
+            }
+        })
+
+        if (p.IsDebug) {
+            // 绘制标签区域边框
+            g.drawRect({
+                pt: {
+                    x: bound.Left,
+                    y: bound.Top
+                },
+                width: bound.Width(),
+                height: bound.Height(),
+                strokeStyle: 'red'
+            });
+        }
+    }
+}
+
+function TimeAxis(pane, args) {
+    (function init(self, pane, args) {
+
+        // 设置绘图区域对象
+        self.DrawPane = pane;         
+
+    })(this, pane, args);
+
+    this.getPoint = function (hour) {
+
+    }
+
+    this.Draw = function (g, data, p) {
+
+        // 计算数字长度
+        var step = 1;
+        var metrics = g.measureText({ text: '00' });
+        while (p.width / (metrics.width * (24 / step)) < 1) {
+            step *= 2;
+        }
+        
+        var hourCount = 25;
+        var timeCount = hourCount / step;
+        var interval = (p.width - metrics.width * timeCount) / timeCount;
+
+        var bound = new Rectangle();
+        bound.Left = p.pt.x;
+        bound.Top = p.pt.y;
+
+        var offsetX = p.pt.x;
+        for (var i = 0; i < hourCount; i += step) {
+            var text = i % 24;
+            if (text < 10) {
+                text = '0' + text;
+            }
+
+            g.drawText({
+                text: text,
+                pt: {
+                    x: offsetX,
+                    y: p.pt.y + 2
+                },
+                style: 'black',
+                font: '宋体',
+                size: 12,
+                bold: false
+            });
+
+            offsetX += metrics.width;
+            offsetX += interval;
+        }
+
+        bound.Right = offsetX - interval;
+        bound.Bottom = metrics.height + 2;
+        p.Bound = bound;
+        
+        // 绘制X坐标轴
+        g.drawLine({
+            pt1: {
+                x: bound.Left,
+                y: bound.Top
+            },
+            pt2: {
+                x: bound.Right,
+                y: bound.Top
+            }
+        });
+    }
+}
+
+
+Graphics.prototype.measureText = function (obj) {
+    if (!obj) return;
+
+    var str = obj.text + ':' + obj.bold + ':' + obj.font + ':' + obj.size;
+    if (typeof (__measuretext_cache__) == 'object' && __measuretext_cache__[str]) {
+        return __measuretext_cache__[str];
+    }
+
+    var div = document.createElement('DIV');
+    div.innerHTML = obj.text;
+    div.style.position = 'absolute';
+    div.style.top = '-100px';
+    div.style.left = '-100px';
+    div.style.fontFamily = obj.font;
+    div.style.fontWeight = obj.bold ? 'bold' : 'normal';
+    div.style.fontSize = obj.size + 'pt';
+    document.body.appendChild(div);
+
+    var metrics = {
+        width: div.offsetWidth,
+        height: div.offsetHeight
+    };    
+
+    document.body.removeChild(div);
+
+    // Add the sizes to the cache as adding DOM elements is costly and can cause slow downs
+    if (typeof (__measuretext_cache__) != 'object') {
+        __measuretext_cache__ = [];
+    }
+    __measuretext_cache__[str] = metrics;
+
+    return metrics;
+}

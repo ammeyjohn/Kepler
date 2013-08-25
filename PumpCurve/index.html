@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="scripts/common.js"></script>
+    <script src="scripts/graphics.js"></script>
+    <script src="scripts/curve.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            /* 获取Canvas画布对象
+               最后的泵图按照Canvas指定的宽度绘制，但是会自动调整高度 */
+            var canvas = document.getElementById('canvas');
+
+            /* 创建水泵状态图对象实例，参数：
+               第一个参数是Canvas对象；
+               第二个参数是状态图初始化参数对象；
+            */
+            var curve = new PumpCurve(canvas, {
+                Debug: true,
+                // 定义水泵绘图区域离Canvas的边界
+                Margin: {
+                    Left: 10,
+                    Top: 20,
+                    Right: 30,
+                    Bottom: 10
+                },
+
+                // 定义图例参数
+                Legend: {
+                    IsShow: true            // 是否绘制图例
+                }
+            });
+
+            // 设置水泵状态像素图
+            PumpCurve.StatePixelImage = document.getElementById('state_pixel_image');
+
+            // 设置时间显示背景图
+            PumpCurve.TimePanelImage = document.getElementById('time_panel_image');
+
+            // 设置水泵数据
+            curve.Data = {                
+                Pumps: [{
+                    Id: 1,                               // 水泵编号                          
+                    Name: '相城3#泵',                    // 水泵名称
+                    Type: 'CSP',                        // 水泵类型
+                    Data: [{ time: 0, value: -1 },      // 水泵数据列表
+                            { time: 1, value: 1 },
+                            { time: 2, value: 1 },
+                            { time: 3, value: 0 },
+                            { time: 4, value: 1 },
+                            { time: 5, value: 0 },
+                            { time: 6, value: 0 },
+                            { time: 7, value: 0 },
+                            { time: 8, value: -1 },
+                            { time: 9, value: 0 },
+                            { time: 10, value: 1 },
+                            { time: 165, value: 1 },
+                            { time: 180, value: 1 },
+                            { time: 195, value: 0 },
+                            { time: 210, value: 0 },
+                            { time: 225, value: 1 },
+                            { time: 240, value: 0 },
+                            { time: 255, value: 0 },
+                            { time: 270, value: 0 },
+                            { time: 285, value: 0 },
+                            { time: 300, value: 0 },
+                            { time: 315, value: -1 },
+                            { time: 330, value: 1 },
+                            { time: 345, value: 0 },
+                            { time: 360, value: -1 },
+                            { time: 375, value: 1 },
+                            { time: 390, value: 0 },
+                            { time: 405, value: 1 },
+                            { time: 420, value: -1 },
+                            { time: 435, value: 0 },
+                            { time: 450, value: 1 },
+                            { time: 465, value: 0 },
+                            { time: 480, value: 1 },
+                            { time: 495, value: 0 },
+                            { time: 510, value: -1 },
+                            { time: 525, value: 0 },
+                            { time: 540, value: -1 },
+                            { time: 555, value: 0 },
+                            { time: 570, value: 1 },
+                            { time: 585, value: -1 }]
+                }, {
+                    Id: 2,
+                    Name: '相城4#泵',
+                    Type: 'CSP',
+                    Data: [{ time: 0, value: 1 },
+                        { time: 15, value: 1 },
+                        { time: 30, value: 1 },
+                        { time: 45, value: 1 },
+                        { time: 60, value: 1 },
+                        { time: 75, value: 1 },
+                        { time: 90, value: 1 },
+                        { time: 105, value: -1 },
+                        { time: 120, value: 1 },
+                        { time: 135, value: 0 },
+                        { time: 150, value: -1 },
+                        { time: 165, value: 1 },
+                        { time: 180, value: 0 },
+                        { time: 195, value: -1 },
+                        { time: 210, value: 1 },
+                        { time: 225, value: 0 },
+                        { time: 240, value: 1 },
+                        { time: 255, value: 1 },
+                        { time: 270, value: 0 },
+                        { time: 285, value: 0 },
+                        { time: 300, value: 0 },
+                        { time: 315, value: -1 },
+                        { time: 330, value: 1 },
+                        { time: 345, value: 1 },
+                        { time: 360, value: -1 },
+                        { time: 375, value: -1 },
+                        { time: 390, value: -1 },
+                        { time: 405, value: 0 },
+                        { time: 420, value: 1 },
+                        { time: 435, value: -1 },
+                        { time: 450, value: 1 },
+                        { time: 465, value: 0 },
+                        { time: 480, value: -1 },
+                        { time: 495, value: 0 },
+                        { time: 510, value: 1 },
+                        { time: 525, value: -1 },
+                        { time: 540, value: -1 },
+                        { time: 555, value: -1 },
+                        { time: 570, value: -1 },
+                        { time: 585, value: 0 }]
+                }, {
+                    Id: 3,
+                    Name: '相城5#泵',
+                    Type: 'RSP',
+                    Data: [{ time: 0, value: 7.20432369263325 },
+                        { time: 60, value: 13.5840198028775 },
+                        { time: 120, value: 19.4750762568965 },
+                        { time: 180, value: 0.453425776376092 },
+                        { time: 240, value: 10.0762354227673 },
+                        { time: 300, value: 4.55849183392317 },
+                        { time: 360, value: 15.4437651703085 },
+                        { time: 420, value: 15.3869697141799 },
+                        { time: 480, value: 2.74003100206278 },
+                        { time: 540, value: 1.52422123701592 },
+                        { time: 600, value: 11.9518433637686 },
+                        { time: 660, value: 8.76021207394379 },
+                        { time: 720, value: 4.75178917213803 },
+                        { time: 780, value: 0.0468008790363751 },
+                        { time: 840, value: 4.48892887219288 },
+                        { time: 900, value: 2.40882488522447 },
+                        { time: 960, value: 9.97174961225303 },
+                        { time: 1020, value: 1.18568841551818 },
+                        { time: 1080, value: 0 },
+                        { time: 1140, value: 4.10265610340502 },
+                        { time: 1200, value: 5.44087082642164 },
+                        { time: 1260, value: 3.47357529598896 },
+                        { time: 1320, value: 3.94978324214654 },
+                        { time: 1380, value: 3.2938270426166 },
+                        { time: 1440, value: 4 }]
+                }, {
+                    Id: 4,
+                    Name: '相城1#泵',
+                    Type: 'RSP'
+                }]
+            };
+
+            // 绘制水泵泵图
+            curve.draw();
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="1000" height="200" style="border: solid 1px gray;"></canvas>
+    <br />    
+    <img id="state_pixel_image" src="images/pixel.png" style="left: -100px; top: -100px;" />
+    <img id="time_panel_image" src="images/time_panel.png" style="left: -100px; top: -100px;" />
+    <br />
+    <a href="http://diveintohtml5.info/canvas.html">diveintohtml5.info</a>    
+</body>
+</html>
