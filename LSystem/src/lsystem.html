@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LSystem</title>
+    <link href="Scripts/easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="Scripts/easyui/themes/icon.css" rel="stylesheet" />
+    <script src="Scripts/jquery/jquery-2.0.3.min.js"></script>
+    <script src="Scripts/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            initializeComponents();
+        })
+
+        function initializeComponents() {
+        }
+    </script>
+</head>
+<body>
+    <div class="easyui-layout" style="width: 800px; height: 600px;" data-options="fit:true">
+        <div data-options="region:'north'" style="height: 50px"></div>
+        <div data-options="region:'south',split:true" style="height: 50px;"></div>
+        <div data-options="region:'east',split:true" title="East" style="width: 200px;">
+            <table id="property" class="easyui-propertygrid" style="width: auto;" 
+                data-options="fit:true, url:'propertygrid_data.json',showGroup:true,scrollbarSize:0"></table>
+        </div>
+        <div data-options="region:'west',split:true" title="West" style="width: 90%">
+            <div class="easyui-accordion" data-options="fit:true,border:false">
+                <div title="Title1">
+                    content1
+                </div>
+                <div title="Title2" data-options="selected:true">
+                    content2
+                </div>
+            </div>
+        </div>
+        <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+            <div class="easyui-tabs" data-options="fit:true,border:false,plain:true">
+                <div title="About"></div>
+                <div title="DataGrid"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
