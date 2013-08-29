@@ -377,7 +377,7 @@
     <Content Include="Scripts\easyui\themes\default\images\Thumbs.db" />
     <Content Include="Scripts\easyui\themes\gray\images\Thumbs.db" />
     <Content Include="Scripts\easyui\themes\metro\images\Thumbs.db" />
-    <Content Include="propertygrid_data.json" />
+    <Content Include="json\propertygrid_data.json" />
     <None Include="Scripts\jquery\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery\jquery-2.0.3.min.js" />
@@ -395,6 +395,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CanvasToImage.ashx.cs">
       <DependentUpon>CanvasToImage.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Handler1.ashx.cs">
+      <DependentUpon>Handler1.ashx</DependentUpon>
     </Compile>
     <Compile Include="Services\LoadProperty.ashx.cs">
       <DependentUpon>LoadProperty.ashx</DependentUpon>
@@ -418,7 +421,6 @@
   <ItemGroup>
     <Folder Include="App_Code\" />
     <Folder Include="Images\" />
-    <Folder Include="json\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
